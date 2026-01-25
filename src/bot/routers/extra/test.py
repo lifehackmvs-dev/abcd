@@ -20,7 +20,7 @@ from src.core.utils.formatters import format_user_log as log
 from src.core.utils.time import datetime_now
 from src.infrastructure.database.models.dto import SubscriptionDto, UserDto
 from src.infrastructure.database.models.dto.plan import PlanSnapshotDto
-from src.services.remnawave import RemnawaveService
+from src.services.keystonewave import RemnawaveService
 from src.services.subscription import SubscriptionService
 
 router = Router(name=__name__)
@@ -32,8 +32,8 @@ async def on_test_command(
     message: Message,
     user: UserDto,
     config: AppConfig,
-    remnawave: FromDishka[RemnawaveSDK],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave: FromDishka[RemnawaveSDK],
+    keystonewave_service: FromDishka[RemnawaveService],
     subscription_service: FromDishka[SubscriptionService],
 ) -> None:
     logger.info(f"{log(user)} Test command executed")
@@ -43,7 +43,7 @@ async def on_test_command(
     # created_user = CreateUserRequestDto(
     #     expire_at=datetime_now() - timedelta(days=2), username=user.remna_name, tag="IMPORTED"
     # )
-    # await remnawave.users.create_user(created_user)
+    # await keystonewave.users.create_user(created_user)
 
     #
 
@@ -59,7 +59,7 @@ async def on_test_command(
     #     plan=PlanSnapshotDto.test(),
     # )
     # await subscription_service.create(user, test)
-    # await remnawave_service.create_user(user, subscription=test)
+    # await keystonewave_service.create_user(user, subscription=test)
 
 
 @inject

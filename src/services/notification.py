@@ -125,7 +125,7 @@ class NotificationService(BaseService):
     async def remnashop_notify(self) -> bool:
         dev = await self.user_service.get(self.config.bot.dev_id) or self._get_temp_dev()
         payload = MessagePayload(
-            i18n_key="ntf-remnashop-info",
+            i18n_key="ntf-keystonetech-info",
             i18n_kwargs={"version": __version__, "repository": REPOSITORY},
             reply_markup=get_remnashop_keyboard(),
             auto_delete_after=None,

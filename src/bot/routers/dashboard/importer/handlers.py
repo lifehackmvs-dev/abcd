@@ -102,11 +102,11 @@ async def on_squads(
     callback: CallbackQuery,
     widget: Button,
     dialog_manager: DialogManager,
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave: FromDishka[RemnawaveSDK],
     notification_service: FromDishka[NotificationService],
 ) -> None:
     user: UserDto = dialog_manager.middleware_data[USER_KEY]
-    result = await remnawave.internal_squads.get_internal_squads()
+    result = await keystonewave.internal_squads.get_internal_squads()
 
     if not result.internal_squads:
         await notification_service.notify_user(

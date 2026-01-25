@@ -25,7 +25,7 @@ class Subscription(BaseSql, TimestampMixin):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
 
-    user_remna_id: Mapped[UUID] = mapped_column(PG_UUID, nullable=False)
+    user_keystone_id: Mapped[UUID] = mapped_column(PG_UUID, nullable=False)
     user_telegram_id: Mapped[int] = mapped_column(
         BigInteger,
         ForeignKey("users.telegram_id", ondelete="CASCADE"),

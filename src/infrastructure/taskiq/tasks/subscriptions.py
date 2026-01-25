@@ -30,7 +30,7 @@ from src.infrastructure.database.models.dto import (
 )
 from src.infrastructure.taskiq.broker import broker
 from src.services.notification import NotificationService
-from src.services.remnawave import RemnawaveService
+from src.services.keystonewave import RemnawaveService
 from src.services.subscription import SubscriptionService
 from src.services.transaction import TransactionService
 from src.services.user import UserService
@@ -47,14 +47,14 @@ from .redirects import (
 async def trial_subscription_task(
     user: UserDto,
     plan: PlanSnapshotDto,
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
     subscription_service: FromDishka[SubscriptionService],
     notification_service: FromDishka[NotificationService],
 ) -> None:
     logger.info(f"Started trial for user '{user.telegram_id}'")
 
     try:
-        created_user = await remnawave_service.create_user(user, plan=plan)
+        created_user = await keystonewave_service.create_user(user, plan=plan)
         trial_subscription = SubscriptionDto(
             user_remna_id=created_user.uuid,
             status=created_user.status,
@@ -131,7 +131,7 @@ async def trial_subscription_task(
 async def purchase_subscription_task(
     transaction: TransactionDto,
     subscription: Optional[SubscriptionDto],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
     subscription_service: FromDishka[SubscriptionService],
     transaction_service: FromDishka[TransactionService],
     notification_service: FromDishka[NotificationService],
@@ -149,7 +149,7 @@ async def purchase_subscription_task(
 
     try:
         if purchase_type == PurchaseType.NEW and not has_trial:
-            created_user = await remnawave_service.create_user(user, plan=plan)
+            created_user = await keystonewave_service.create_user(user, plan=plan)
             new_subscription = SubscriptionDto(
                 user_remna_id=created_user.uuid,
                 status=created_user.status,
@@ -174,7 +174,7 @@ async def purchase_subscription_task(
             new_expire = base_date + timedelta(days=transaction.plan.duration)
             subscription.expire_at = new_expire
 
-            updated_user = await remnawave_service.updated_user(
+            updated_user = await keystonewave_service.updated_user(
                 user=user,
                 uuid=subscription.user_remna_id,
                 subscription=subscription,
@@ -192,7 +192,7 @@ async def purchase_subscription_task(
             subscription.status = SubscriptionStatus.DISABLED
             await subscription_service.update(subscription)
 
-            updated_user = await remnawave_service.updated_user(
+            updated_user = await keystonewave_service.updated_user(
                 user=user,
                 uuid=subscription.user_remna_id,
                 plan=plan,
@@ -256,20 +256,20 @@ async def purchase_subscription_task(
 @broker.task
 @inject
 async def delete_current_subscription_task(
-    remna_user: RemnaUserDto,
+    keystone_user: RemnaUserDto,
     user_service: FromDishka[UserService],
     subscription_service: FromDishka[SubscriptionService],
 ) -> None:
-    logger.info(f"Delete current subscription started for user '{remna_user.telegram_id}'")
+    logger.info(f"Delete current subscription started for user '{keystone_user.telegram_id}'")
 
-    if not remna_user.telegram_id:
-        logger.debug(f"Skipping RemnaUser '{remna_user.username}': telegram_id is empty")
+    if not keystone_user.telegram_id:
+        logger.debug(f"Skipping RemnaUser '{keystone_user.username}': telegram_id is empty")
         return
 
-    user = await user_service.get(remna_user.telegram_id)
+    user = await user_service.get(keystone_user.telegram_id)
 
     if not user:
-        logger.debug(f"User '{remna_user.telegram_id}' not found, skipping deletion")
+        logger.debug(f"User '{keystone_user.telegram_id}' not found, skipping deletion")
         return
 
     subscription = await subscription_service.get_current(user.telegram_id)
@@ -278,7 +278,7 @@ async def delete_current_subscription_task(
         logger.debug(f"No current subscription for user '{user.telegram_id}', skipping deletion")
         return
 
-    if subscription.user_remna_id != remna_user.uuid:
+    if subscription.user_remna_id != keystone_user.uuid:
         logger.debug(f"Subscription user UUID differs for '{user.telegram_id}', skipping deletion")
         return
 

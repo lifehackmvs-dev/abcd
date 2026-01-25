@@ -28,10 +28,10 @@ async def from_xui_getter(
 @inject
 async def squads_getter(
     dialog_manager: DialogManager,
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave: FromDishka[RemnawaveSDK],
     **kwargs: Any,
 ) -> dict[str, Any]:
-    result = await remnawave.internal_squads.get_internal_squads()
+    result = await keystonewave.internal_squads.get_internal_squads()
     selected_squads = dialog_manager.dialog_data.get("selected_squads", [])
 
     squads = [

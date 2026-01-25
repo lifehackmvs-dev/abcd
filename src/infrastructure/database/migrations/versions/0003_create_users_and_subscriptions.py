@@ -43,7 +43,7 @@ def upgrade() -> None:
     op.create_table(
         "subscriptions",
         sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
-        sa.Column("user_remna_id", sa.UUID(), nullable=False),
+        sa.Column("user_keystone_id", sa.UUID(), nullable=False),
         sa.Column("user_telegram_id", sa.BigInteger(), nullable=False),
         sa.Column(
             "status",

@@ -10,7 +10,7 @@ from src.infrastructure.database.models.dto import ReferralRewardDto
 from src.infrastructure.taskiq.broker import broker
 from src.services.notification import NotificationService
 from src.services.referral import ReferralService
-from src.services.remnawave import RemnawaveService
+from src.services.keystonewave import RemnawaveService
 from src.services.subscription import SubscriptionService
 from src.services.user import UserService
 
@@ -23,7 +23,7 @@ async def give_referrer_reward_task(
     referred_name: str,
     user_service: FromDishka[UserService],
     subscription_service: FromDishka[SubscriptionService],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
     notification_service: FromDishka[NotificationService],
     referral_service: FromDishka[ReferralService],
 ) -> None:
@@ -70,7 +70,7 @@ async def give_referrer_reward_task(
         subscription.expire_at = new_expire
 
         await subscription_service.update(subscription)
-        await remnawave_service.updated_user(
+        await keystonewave_service.updated_user(
             user=user,
             uuid=subscription.user_remna_id,
             subscription=subscription,

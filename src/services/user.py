@@ -71,14 +71,14 @@ class UserService(BaseService):
         logger.info(f"Created new user '{user.telegram_id}'")
         return UserDto.from_model(db_created_user)  # type: ignore[return-value]
 
-    async def create_from_panel(self, remna_user: RemnaUserDto) -> UserDto:
+    async def create_from_panel(self, keystone_user: RemnaUserDto) -> UserDto:
         user = UserDto(
-            telegram_id=remna_user.telegram_id,
+            telegram_id=keystone_user.telegram_id,
             referral_code=generate_referral_code(
-                remna_user.telegram_id,  # type: ignore[arg-type]
+                keystone_user.telegram_id,  # type: ignore[arg-type]
                 secret=self.config.crypt_key.get_secret_value(),
             ),
-            name=str(remna_user.telegram_id),
+            name=str(keystone_user.telegram_id),
             role=UserRole.USER,
             language=self.config.default_locale,
         )

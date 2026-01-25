@@ -10,8 +10,8 @@ from src.bot.states import (
     DashboardBroadcast,
     DashboardImporter,
     DashboardPromocodes,
-    DashboardRemnashop,
-    DashboardRemnawave,
+    DashboardKeystoneTech,
+    DashboardKeystoneWave,
     DashboardStatistics,
     DashboardUsers,
 )
@@ -60,15 +60,15 @@ dashboard = Window(
     ),
     Row(
         Start(
-            text=I18nFormat("btn-dashboard-remnawave"),
-            id="remnawave",
-            state=DashboardRemnawave.MAIN,
+            text=I18nFormat("btn-dashboard-keystonewave"),
+            id="keystonewave",
+            state=DashboardKeystoneWave.MAIN,
             mode=StartMode.RESET_STACK,
         ),
         Start(
-            text=I18nFormat("btn-dashboard-remnashop"),
-            id="remnashop",
-            state=DashboardRemnashop.MAIN,
+            text=I18nFormat("btn-dashboard-keystonetech"),
+            id="keystonetech",
+            state=DashboardKeystoneTech.MAIN,
             mode=StartMode.RESET_STACK,
         ),
         when=F[MIDDLEWARE_DATA_KEY][USER_KEY].is_dev,

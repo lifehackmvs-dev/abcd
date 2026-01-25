@@ -53,13 +53,13 @@ async def send_access_opened_notifications_task(
 @broker.task(retry_on_error=True)
 @inject
 async def send_subscription_expire_notification_task(
-    remna_user: RemnaUserDto,
+    keystone_user: RemnaUserDto,
     ntf_type: UserNotificationType,
     i18n_kwargs: dict[str, Any],
     user_service: FromDishka[UserService],
     notification_service: FromDishka[NotificationService],
 ) -> None:
-    telegram_id = cast(int, remna_user.telegram_id)
+    telegram_id = cast(int, keystone_user.telegram_id)
     i18n_kwargs_extra: dict[str, Any]
 
     if ntf_type == UserNotificationType.EXPIRES_IN_3_DAYS:
@@ -105,12 +105,12 @@ async def send_subscription_expire_notification_task(
 @broker.task(retry_on_error=True)
 @inject
 async def send_subscription_limited_notification_task(
-    remna_user: RemnaUserDto,
+    keystone_user: RemnaUserDto,
     i18n_kwargs: dict[str, Any],
     user_service: FromDishka[UserService],
     notification_service: FromDishka[NotificationService],
 ) -> None:
-    telegram_id = cast(int, remna_user.telegram_id)
+    telegram_id = cast(int, keystone_user.telegram_id)
     user = await user_service.get(telegram_id)
 
     if not user:

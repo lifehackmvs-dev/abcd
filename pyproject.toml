@@ -1,8 +1,8 @@
 [project]
-name = "remnashop"
+name = "keystonetech"
 version = "0.0.0"
-description = "This is a Telegram bot for selling VPN subscriptions. It works with Remnawave"
-authors = [{ name = "snoups" }]
+description = "This is a Telegram bot for selling VPN subscriptions. It works with KeystoneWave"
+authors = []
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.12,<3.13"
@@ -19,7 +19,6 @@ dependencies = [
     "msgspec~=0.19.0",
     "pydantic-settings~=2.11.0",
     "redis~=7.0.0",
-    #"remnapy @ git+https://github.com/snoups/remnapy.git@development",
     "remnapy>=2.3.3",
     "taskiq[orjson]~=0.12.1",
     "taskiq-redis~=1.2.0",
@@ -30,8 +29,6 @@ dependencies = [
 ]
 
 [project.urls]
-homepage = "https://t.me/@remna_shop"
-repository = "https://github.com/snoups/remnashop"
 
 [dependency-groups]
 dev = [

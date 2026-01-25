@@ -19,10 +19,10 @@ from src.core.utils.formatters import (
 @inject
 async def system_getter(
     dialog_manager: DialogManager,
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave: FromDishka[RemnawaveSDK],
     **kwargs: Any,
 ) -> dict[str, Any]:
-    result = await remnawave.system.get_stats()
+    result = await keystonewave.system.get_stats()
 
     return {
         "version": "",  # TODO: Добавить версию панели
@@ -41,10 +41,10 @@ async def system_getter(
 @inject
 async def users_getter(
     dialog_manager: DialogManager,
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave: FromDishka[RemnawaveSDK],
     **kwargs: Any,
 ) -> dict[str, Any]:
-    result = await remnawave.system.get_stats()
+    result = await keystonewave.system.get_stats()
 
     return {
         "users_total": str(result.users.total_users),
@@ -62,7 +62,7 @@ async def users_getter(
 @inject
 async def hosts_getter(
     dialog_manager: DialogManager,
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave: FromDishka[RemnawaveSDK],
     i18n: FromDishka[TranslatorRunner],
     **kwargs: Any,
 ) -> dict[str, Any]:
@@ -72,13 +72,13 @@ async def hosts_getter(
         raise ValueError()
 
     current_page = await widget.get_page()
-    result = await remnawave.hosts.get_all_hosts()
+    result = await keystonewave.hosts.get_all_hosts()
     hosts = []
 
     for host in result:
         hosts.append(
             i18n.get(
-                "msg-remnawave-host-details",
+                "msg-keystonewave-host-details",
                 remark=host.remark,
                 status="OFF" if host.is_disabled else "ON",
                 address=host.address,
@@ -97,7 +97,7 @@ async def hosts_getter(
 @inject
 async def nodes_getter(
     dialog_manager: DialogManager,
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave: FromDishka[RemnawaveSDK],
     i18n: FromDishka[TranslatorRunner],
     **kwargs: Any,
 ) -> dict[str, Any]:
@@ -107,7 +107,7 @@ async def nodes_getter(
         raise ValueError()
 
     current_page = await widget.get_page()
-    result = await remnawave.nodes.get_all_nodes()
+    result = await keystonewave.nodes.get_all_nodes()
     nodes = []
 
     for node in result:
@@ -123,7 +123,7 @@ async def nodes_getter(
 
         nodes.append(
             i18n.get(
-                "msg-remnawave-node-details",
+                "msg-keystonewave-node-details",
                 country=format_country_code(code=node.country_code),
                 name=node.name,
                 status="ON" if node.is_connected else "OFF",
@@ -146,7 +146,7 @@ async def nodes_getter(
 @inject
 async def inbounds_getter(
     dialog_manager: DialogManager,
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave: FromDishka[RemnawaveSDK],
     i18n: FromDishka[TranslatorRunner],
     **kwargs: Any,
 ) -> dict[str, Any]:
@@ -156,13 +156,13 @@ async def inbounds_getter(
         raise ValueError()
 
     current_page = await widget.get_page()
-    result = await remnawave.inbounds.get_all_inbounds()
+    result = await keystonewave.inbounds.get_all_inbounds()
     inbounds = []
 
     for inbound in result.inbounds:  # type: ignore[attr-defined]
         inbounds.append(
             i18n.get(
-                "msg-remnawave-inbound-details",
+                "msg-keystonewave-inbound-details",
                 inbound_id=str(inbound.uuid),
                 tag=inbound.tag,
                 type=inbound.type,

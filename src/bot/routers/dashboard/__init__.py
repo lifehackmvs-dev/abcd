@@ -4,8 +4,8 @@ from . import (
     dialog,
     importer,
     promocodes,
-    remnashop,
-    remnawave,
+    keystonetech,
+    keystonewave,
     statistics,
     users,
 )
@@ -16,8 +16,8 @@ __all__ = [
     "broadcast",
     "importer",
     "promocodes",
-    "remnashop",
-    "remnawave",
+    "keystonetech",
+    "keystonewave",
     "statistics",
     "users",
 ]

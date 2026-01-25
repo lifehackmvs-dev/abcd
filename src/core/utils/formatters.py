@@ -237,7 +237,7 @@ def i18n_format_device_limit(value: int) -> tuple[str, dict[str, int]]:
 
 
 def i18n_format_expire_time(expiry: Union[timedelta, datetime]) -> list[tuple[str, dict[str, int]]]:
-    # Special case: unlimited remnawave ;D
+    # Special case: unlimited keystonewave ;D
     if isinstance(expiry, datetime) and expiry.year == 2099:
         return [(UtilKey.UNLIMITED, {"value": -1})]
 

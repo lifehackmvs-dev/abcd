@@ -210,7 +210,7 @@ async def allowed_users_getter(dialog_manager: DialogManager, **kwargs: Any) -> 
 @inject
 async def squads_getter(
     dialog_manager: DialogManager,
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave: FromDishka[RemnawaveSDK],
     **kwargs: Any,
 ) -> dict[str, Any]:
     adapter = DialogDataAdapter(dialog_manager)
@@ -219,13 +219,13 @@ async def squads_getter(
     if not plan:
         raise ValueError("PlanDto not found in dialog data")
 
-    internal_response = await remnawave.internal_squads.get_internal_squads()
+    internal_response = await keystonewave.internal_squads.get_internal_squads()
     internal_dict = {s.uuid: s.name for s in internal_response.internal_squads}
     internal_squads_names = ", ".join(
         internal_dict.get(squad, str(squad)) for squad in plan.internal_squads
     )
 
-    external_response = await remnawave.external_squads.get_external_squads()
+    external_response = await keystonewave.external_squads.get_external_squads()
     external_dict = {s.uuid: s.name for s in external_response.external_squads}
     external_squad_name = external_dict.get(plan.external_squad) if plan.external_squad else False
 
@@ -238,7 +238,7 @@ async def squads_getter(
 @inject
 async def internal_squads_getter(
     dialog_manager: DialogManager,
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave: FromDishka[RemnawaveSDK],
     **kwargs: Any,
 ) -> dict[str, Any]:
     adapter = DialogDataAdapter(dialog_manager)
@@ -247,7 +247,7 @@ async def internal_squads_getter(
     if not plan:
         raise ValueError("PlanDto not found in dialog data")
 
-    result = await remnawave.internal_squads.get_internal_squads()
+    result = await keystonewave.internal_squads.get_internal_squads()
     existing_squad_uuids = {squad.uuid for squad in result.internal_squads}
 
     if plan.internal_squads:
@@ -274,7 +274,7 @@ async def internal_squads_getter(
 @inject
 async def external_squads_getter(
     dialog_manager: DialogManager,
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave: FromDishka[RemnawaveSDK],
     **kwargs: Any,
 ) -> dict[str, Any]:
     adapter = DialogDataAdapter(dialog_manager)
@@ -283,7 +283,7 @@ async def external_squads_getter(
     if not plan:
         raise ValueError("PlanDto not found in dialog data")
 
-    result = await remnawave.external_squads.get_external_squads()
+    result = await keystonewave.external_squads.get_external_squads()
     existing_squad_uuids = {squad.uuid for squad in result.external_squads}
 
     if plan.external_squad and plan.external_squad not in existing_squad_uuids:

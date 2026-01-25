@@ -17,7 +17,7 @@ from src.infrastructure.database import UnitOfWork
 from src.infrastructure.database.models.dto import (
     PlanDto,
     PlanSnapshotDto,
-    RemnaSubscriptionDto,
+    KeystoneSubscriptionDto,
     SubscriptionDto,
     UserDto,
 )
@@ -28,7 +28,7 @@ from src.services.user import UserService
 
 from .base import BaseService
 
-T = TypeVar("T", SubscriptionDto, RemnaSubscriptionDto)
+T = TypeVar("T", SubscriptionDto, KeystoneSubscriptionDto)
 
 
 class SubscriptionService(BaseService):
@@ -176,23 +176,23 @@ class SubscriptionService(BaseService):
     @staticmethod
     def subscriptions_match(
         bot_subscription: Optional[SubscriptionDto],
-        remna_subscription: Optional[RemnaSubscriptionDto],
+        keystone_subscription: Optional[KeystoneSubscriptionDto],
     ) -> bool:
-        if not bot_subscription or not remna_subscription:
+        if not bot_subscription or not keystone_subscription:
             return False
 
         return (
-            bot_subscription.user_remna_id == remna_subscription.uuid
-            and bot_subscription.status == remna_subscription.status
-            and bot_subscription.url == remna_subscription.url
-            and bot_subscription.traffic_limit == remna_subscription.traffic_limit
-            and bot_subscription.device_limit == remna_subscription.device_limit
-            and bot_subscription.expire_at == remna_subscription.expire_at
-            and bot_subscription.external_squad == remna_subscription.external_squad
-            and bot_subscription.traffic_limit_strategy == remna_subscription.traffic_limit_strategy
-            and bot_subscription.tag == remna_subscription.tag
+            bot_subscription.user_remna_id == keystone_subscription.uuid
+            and bot_subscription.status == keystone_subscription.status
+            and bot_subscription.url == keystone_subscription.url
+            and bot_subscription.traffic_limit == keystone_subscription.traffic_limit
+            and bot_subscription.device_limit == keystone_subscription.device_limit
+            and bot_subscription.expire_at == keystone_subscription.expire_at
+            and bot_subscription.external_squad == keystone_subscription.external_squad
+            and bot_subscription.traffic_limit_strategy == keystone_subscription.traffic_limit_strategy
+            and bot_subscription.tag == keystone_subscription.tag
             and sorted(bot_subscription.internal_squads)
-            == sorted(remna_subscription.internal_squads)
+            == sorted(keystone_subscription.internal_squads)
         )
 
     @staticmethod
@@ -220,7 +220,7 @@ class SubscriptionService(BaseService):
         )
 
     @staticmethod
-    def apply_sync(target: T, source: Union[SubscriptionDto, RemnaSubscriptionDto]) -> T:
+    def apply_sync(target: T, source: Union[SubscriptionDto, KeystoneSubscriptionDto]) -> T:
         target_fields = set(type(target).model_fields)
         source_fields = set(type(source).model_fields)
 

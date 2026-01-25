@@ -96,13 +96,13 @@ class DashboardUser(StatesGroup):
     SUBSCRIPTION_DURATION = State()
 
 
-class DashboardRemnashop(StatesGroup):
+class DashboardKeystoneTech(StatesGroup):
     MAIN = State()
     ADMINS = State()
     ADVERTISING = State()
 
 
-class RemnashopReferral(StatesGroup):
+class KeystoneTechReferral(StatesGroup):
     MAIN = State()
     LEVEL = State()
     REWARD = State()
@@ -111,7 +111,7 @@ class RemnashopReferral(StatesGroup):
     REWARD_STRATEGY = State()
 
 
-class RemnashopGateways(StatesGroup):
+class KeystoneTechGateways(StatesGroup):
     MAIN = State()
     SETTINGS = State()
     FIELD = State()
@@ -119,13 +119,13 @@ class RemnashopGateways(StatesGroup):
     PLACEMENT = State()
 
 
-class RemnashopNotifications(StatesGroup):
+class KeystoneTechNotifications(StatesGroup):
     MAIN = State()
     USER = State()
     SYSTEM = State()
 
 
-class RemnashopPlans(StatesGroup):
+class KeystoneTechPlans(StatesGroup):
     MAIN = State()
     CONFIGURATOR = State()
     NAME = State()
@@ -145,7 +145,7 @@ class RemnashopPlans(StatesGroup):
     EXTERNAL_SQUADS = State()
 
 
-class DashboardRemnawave(StatesGroup):
+class DashboardKeystoneWave(StatesGroup):
     MAIN = State()
     USERS = State()
     HOSTS = State()

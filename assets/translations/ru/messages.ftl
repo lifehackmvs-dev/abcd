@@ -1,5 +1,5 @@
 # Remnashop
-ntf-remnashop-info = 
+ntf-keystonetech-info = 
     <b>💎 Remnashop v{ $version }</b>
 
     Данный проект был создан и поддерживается всего одним <strike>разработчиком</strike> электриком. Поскольку бот полностью БЕСПЛАТНЫЙ и с открытым исходным кодом, он существует только благодаря вашей поддержке.
@@ -397,7 +397,7 @@ msg-user-sync =
     }
     </blockquote>
 
-    <b>🌊 Remnawave:</b> { $remna_version }
+    <b>🌊 KeystoneWave:</b> { $remna_version }
     <blockquote>
     { $has_remna_subscription -> 
     [0] Данные отсутствуют
@@ -577,7 +577,7 @@ msg-user-message =
     
 
 # RemnaWave
-msg-remnawave-main =
+msg-keystonewave-main =
     <b>🌊 RemnaWave</b>
     
     <b>🖥️ Система:</b>
@@ -595,7 +595,7 @@ msg-remnawave-main =
     • <b>Аптайм</b>: { $uptime }
     </blockquote>
 
-msg-remnawave-users =
+msg-keystonewave-users =
     <b>👥 Пользователи</b>
 
     <b>📊 Статистика:</b>
@@ -615,7 +615,7 @@ msg-remnawave-users =
     • <b>Сейчас онлайн</b>: { $online_now }
     </blockquote>
 
-msg-remnawave-host-details =
+msg-keystonewave-host-details =
     <b>{ $remark } ({ $status ->
     [ON] включен
     *[OFF] выключен
@@ -628,7 +628,7 @@ msg-remnawave-host-details =
     }
     </blockquote>
 
-msg-remnawave-node-details =
+msg-keystonewave-node-details =
     <b>{ $country } { $name } ({ $status ->
     [ON] подключено
     *[OFF] отключено
@@ -643,7 +643,7 @@ msg-remnawave-node-details =
     • <b>Трафик</b>: { $traffic_used } / { $traffic_limit }
     </blockquote>
 
-msg-remnawave-inbound-details =
+msg-keystonewave-inbound-details =
     <b>🔗 { $tag }</b>
     <blockquote>
     • <b>ID</b>: <code>{ $inbound_id }</code>
@@ -658,24 +658,24 @@ msg-remnawave-inbound-details =
     }
     </blockquote>
 
-msg-remnawave-hosts =
+msg-keystonewave-hosts =
     <b>🌐 Хосты</b>
     
     { $host }
 
-msg-remnawave-nodes = 
+msg-keystonewave-nodes = 
     <b>🖥️ Ноды</b>
 
     { $node }
 
-msg-remnawave-inbounds =
+msg-keystonewave-inbounds =
     <b>🔌 Инбаунды</b>
 
     { $inbound }
 
 
-# RemnaShop
-msg-remnashop-main = <b>🛍 RemnaShop v{ $version }</b>
+# Keystone Tech
+msg-keystonetech-main = <b>🛍 Keystone Tech v{ $version }</b>
 msg-admins-main = <b>👮‍♂️ Администраторы</b>
 
 

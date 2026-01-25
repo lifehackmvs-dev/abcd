@@ -20,7 +20,7 @@ from src.infrastructure.taskiq.tasks.subscriptions import trial_subscription_tas
 from src.services.notification import NotificationService
 from src.services.plan import PlanService
 from src.services.referral import ReferralService
-from src.services.remnawave import RemnawaveService
+from src.services.keystonewave import RemnawaveService
 from src.services.settings import SettingsService
 
 router = Router(name=__name__)
@@ -95,7 +95,7 @@ async def on_device_delete(
     callback: CallbackQuery,
     widget: Button,
     sub_manager: SubManager,
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
 ) -> None:
     await sub_manager.load_data()
     selected_short_hwid = sub_manager.item_id
@@ -113,7 +113,7 @@ async def on_device_delete(
     if not (user.current_subscription and user.current_subscription.device_limit):
         raise ValueError("User has no active subscription or device limit unlimited")
 
-    devices = await remnawave_service.delete_device(user=user, hwid=full_hwid)
+    devices = await keystonewave_service.delete_device(user=user, hwid=full_hwid)
     logger.info(f"{log(user)} Deleted device '{full_hwid}'")
 
     if devices:

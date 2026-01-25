@@ -10,8 +10,8 @@ from .base import BaseConfig
 from .validators import validate_not_change_me
 
 
-class RemnawaveConfig(BaseConfig, env_prefix="REMNAWAVE_"):
-    host: SecretStr = SecretStr("remnawave")
+class KeystoneWaveConfig(BaseConfig, env_prefix="KEYSTONEWAVE_"):
+    host: SecretStr = SecretStr("keystonewave")
     port: int = 3000
     token: SecretStr
     caddy_token: SecretStr = SecretStr("")
@@ -20,7 +20,7 @@ class RemnawaveConfig(BaseConfig, env_prefix="REMNAWAVE_"):
 
     @property
     def is_external(self) -> bool:
-        return self.host.get_secret_value() != "remnawave"
+        return self.host.get_secret_value() != "keystonewave"
 
     @property
     def url(self) -> SecretStr:
@@ -49,23 +49,23 @@ class RemnawaveConfig(BaseConfig, env_prefix="REMNAWAVE_"):
     def validate_host(cls, field: SecretStr, info: FieldValidationInfo) -> SecretStr:
         host = field.get_secret_value()
 
-        if host == "remnawave" or re.match(DOMAIN_REGEX, host):
+        if host == "keystonewave" or re.match(DOMAIN_REGEX, host):
             validate_not_change_me(field, info)
             return field
 
         raise ValueError(
-            "REMNAWAVE_HOST must be 'remnawave' (docker) or a valid domain (e.g., example.com)"
+            "KEYSTONEWAVE_HOST must be 'keystonewave' (docker) or a valid domain (e.g., example.com)"
         )
 
     @field_validator("token")
     @classmethod
-    def validate_remnawave_token(cls, field: SecretStr, info: FieldValidationInfo) -> SecretStr:
+    def validate_keystonewave_token(cls, field: SecretStr, info: FieldValidationInfo) -> SecretStr:
         validate_not_change_me(field, info)
         return field
 
     @field_validator("webhook_secret")
     @classmethod
-    def validate_remnawave_webhook_secret(
+    def validate_keystonewave_webhook_secret(
         cls,
         field: SecretStr,
         info: FieldValidationInfo,
@@ -84,6 +84,6 @@ class RemnawaveConfig(BaseConfig, env_prefix="REMNAWAVE_"):
         cookie = cookie.strip()
 
         if "=" not in cookie or cookie.startswith("=") or cookie.endswith("="):
-            raise ValueError("REMNAWAVE_COOKIE must be in 'key=value' format")
+            raise ValueError("KEYSTONEWAVE_COOKIE must be in 'key=value' format")
 
         return field

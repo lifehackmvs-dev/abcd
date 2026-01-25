@@ -16,7 +16,7 @@ from src.core.utils.formatters import (
 from src.infrastructure.database.models.dto import UserDto
 from src.services.plan import PlanService
 from src.services.referral import ReferralService
-from src.services.remnawave import RemnawaveService
+from src.services.keystonewave import RemnawaveService
 from src.services.settings import SettingsService
 from src.services.subscription import SubscriptionService
 
@@ -92,13 +92,13 @@ async def menu_getter(
 async def devices_getter(
     dialog_manager: DialogManager,
     user: UserDto,
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
     **kwargs: Any,
 ) -> dict[str, Any]:
     if not user.current_subscription:
         raise ValueError(f"Current subscription for user '{user.telegram_id}' not found")
 
-    devices = await remnawave_service.get_devices_user(user)
+    devices = await keystonewave_service.get_devices_user(user)
 
     formatted_devices = [
         {

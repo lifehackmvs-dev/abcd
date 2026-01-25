@@ -13,7 +13,7 @@ from src.core.config import AppConfig
 from src.core.constants import API_V1, REMNAWAVE_WEBHOOK_PATH
 from src.core.utils.message_payload import MessagePayload
 from src.services.notification import NotificationService
-from src.services.remnawave import RemnawaveService
+from src.services.keystonewave import RemnawaveService
 
 router = APIRouter(prefix=API_V1)
 
@@ -23,17 +23,17 @@ router = APIRouter(prefix=API_V1)
 async def remnawave_webhook(
     request: Request,
     config: FromDishka[AppConfig],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
     notification_service: FromDishka[NotificationService],
 ) -> Response:
     try:
         raw_body = await request.body()
         data = await request.json()
-        logger.debug(f"Received Remnawave webhook payload: '{data}'")
+        logger.debug(f"Received KeystoneWave webhook payload: '{data}'")
         payload = WebhookUtility.parse_webhook(
             body=raw_body.decode("utf-8"),
             headers=dict(request.headers),
-            webhook_secret=config.remnawave.webhook_secret.get_secret_value(),
+            webhook_secret=config.keystonewave.webhook_secret.get_secret_value(),
             validate=True,
         )
     except Exception as exception:
@@ -47,11 +47,11 @@ async def remnawave_webhook(
     try:
         if WebhookUtility.is_user_event(payload.event):
             user = cast(UserDto, WebhookUtility.get_typed_data(payload))
-            await remnawave_service.handle_user_event(payload.event, user)
+            await keystonewave_service.handle_user_event(payload.event, user)
 
         elif WebhookUtility.is_user_hwid_devices_event(payload.event):
             event = cast(UserHwidDeviceEventDto, WebhookUtility.get_typed_data(payload))
-            await remnawave_service.handle_device_event(
+            await keystonewave_service.handle_device_event(
                 payload.event,
                 event.user,
                 event.hwid_user_device,
@@ -59,13 +59,13 @@ async def remnawave_webhook(
 
         elif WebhookUtility.is_node_event(payload.event):
             node = cast(NodeDto, WebhookUtility.get_typed_data(payload))
-            await remnawave_service.handle_node_event(payload.event, node)
+            await keystonewave_service.handle_node_event(payload.event, node)
 
         else:
-            logger.warning(f"Unhandled Remnawave event type '{payload.event}'")
+            logger.warning(f"Unhandled KeystoneWave event type '{payload.event}'")
 
     except Exception as exception:
-        logger.exception(f"Failed to process Remnawave webhook due to '{exception}'")
+        logger.exception(f"Failed to process KeystoneWave webhook due to '{exception}'")
         traceback_str = traceback.format_exc()
         error_type_name = type(exception).__name__
         error_message = Text(str(exception)[:512])

@@ -444,12 +444,12 @@ sync = Window(
     I18nFormat("msg-user-sync"),
     Column(
         Button(
-            text=I18nFormat("btn-user-sync-remnashop"),
+            text=I18nFormat("btn-user-sync-keystonetech"),
             id="sync_from_remnashop",
             on_click=on_sync_from_remnashop,
         ),
         Button(
-            text=I18nFormat("btn-user-sync-remnawave"),
+            text=I18nFormat("btn-user-sync-keystonewave"),
             id="sync_from_remnawave",
             on_click=on_sync_from_remnawave,
         ),

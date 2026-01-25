@@ -7,7 +7,7 @@ from .database import DatabaseProvider
 from .i18n import I18nProvider
 from .payment_gateways import PaymentGatewaysProvider
 from .redis import RedisProvider
-from .remnawave import RemnawaveProvider
+from .keystonewave import RemnawaveProvider
 from .services import ServicesProvider
 
 

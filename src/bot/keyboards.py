@@ -139,48 +139,13 @@ def get_contact_support_keyboard(username: str, text: str) -> InlineKeyboardMark
     return builder.as_markup()
 
 
-def get_remnashop_keyboard() -> InlineKeyboardMarkup:
+def get_keystonetech_keyboard() -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
-
-    builder.row(
-        InlineKeyboardButton(
-            text="btn-remnashop-github",
-            url=REPOSITORY,
-        ),
-        InlineKeyboardButton(
-            text="btn-remnashop-telegram",
-            url=f"{T_ME}remna_shop",
-        ),
-        # InlineKeyboardButton(
-        #     text="btn-remnashop-guide",
-        #     url=f"{T_ME}remna_shop",
-        # ),
-    )
-
-    builder.row(
-        InlineKeyboardButton(
-            text="btn-remnashop-donate",
-            url="https://yookassa.ru/my/i/Z8AkHJ_F9sO_/l",
-        )
-    )
-
     return builder.as_markup()
 
 
-def get_remnashop_update_keyboard() -> InlineKeyboardMarkup:
+def get_keystonetech_update_keyboard() -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
-
-    builder.row(
-        InlineKeyboardButton(
-            text="btn-remnashop-release-latest",
-            url=f"{REPOSITORY}/releases/latest",
-        ),
-        InlineKeyboardButton(
-            text="btn-remnashop-how-upgrade",
-            url=f"{REPOSITORY}?tab=readme-ov-file#step-5--how-to-upgrade",
-        ),
-    )
-
     return builder.as_markup()
 
 

@@ -10,7 +10,7 @@ from src.services.plan import PlanService
 from src.services.pricing import PricingService
 from src.services.promocode import PromocodeService
 from src.services.referral import ReferralService
-from src.services.remnawave import RemnawaveService
+from src.services.keystonewave import RemnawaveService
 from src.services.settings import SettingsService
 from src.services.subscription import SubscriptionService
 from src.services.transaction import TransactionService
@@ -27,7 +27,7 @@ class ServicesProvider(Provider):
     gateway_service = provide(source=PaymentGatewayService, scope=Scope.REQUEST)
     plan_service = provide(source=PlanService, scope=Scope.REQUEST)
     promocode_service = provide(source=PromocodeService, scope=Scope.REQUEST)
-    remnawave_service = provide(source=RemnawaveService, scope=Scope.REQUEST)
+    keystonewave_service = provide(source=RemnawaveService, scope=Scope.REQUEST)
     subscription_service = provide(source=SubscriptionService, scope=Scope.REQUEST)
     transaction_service = provide(source=TransactionService, scope=Scope.REQUEST)
     user_service = provide(source=UserService, scope=Scope.REQUEST)

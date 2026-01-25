@@ -6,7 +6,7 @@ from loguru import logger
 from packaging.version import Version
 
 from src.__version__ import __version__ as local_version
-from src.bot.keyboards import get_remnashop_update_keyboard
+from src.bot.keyboards import get_keystonetech_update_keyboard
 from src.core.enums import SystemNotificationType
 from src.core.storage.keys import LastNotifiedVersionKey
 from src.core.utils.message_payload import MessagePayload
@@ -14,9 +14,7 @@ from src.infrastructure.redis.repository import RedisRepository
 from src.infrastructure.taskiq.broker import broker
 from src.services.notification import NotificationService
 
-REMOTE_VERSION_URL: Final[str] = (
-    "https://raw.githubusercontent.com/snoups/remnashop/main/src/__version__.py"
-)
+REMOTE_VERSION_URL: Final[str] = ""
 
 
 @broker.task(schedule=[{"cron": "*/60 * * * *"}], retry_on_error=False)
@@ -60,7 +58,7 @@ async def check_bot_update(
                         "local_version": local_version,
                         "remote_version": remote_version,
                     },
-                    reply_markup=get_remnashop_update_keyboard(),
+                    reply_markup=get_keystonetech_update_keyboard(),
                 ),
             )
         elif rv == lv:

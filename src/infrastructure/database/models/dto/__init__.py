@@ -15,7 +15,7 @@ from .plan import PlanDto, PlanDurationDto, PlanPriceDto, PlanSnapshotDto
 from .promocode import PromocodeActivationDto, PromocodeDto
 from .referral import ReferralDto, ReferralRewardDto
 from .settings import ReferralSettingsDto, SettingsDto, SystemNotificationDto, UserNotificationDto
-from .subscription import BaseSubscriptionDto, RemnaSubscriptionDto, SubscriptionDto
+from .subscription import BaseSubscriptionDto, KeystoneSubscriptionDto, SubscriptionDto
 from .transaction import BaseTransactionDto, PriceDetailsDto, TransactionDto
 from .user import BaseUserDto, UserDto
 
@@ -57,7 +57,7 @@ __all__ = [
     "SystemNotificationDto",
     "UserNotificationDto",
     "SubscriptionDto",
-    "RemnaSubscriptionDto",
+    "KeystoneSubscriptionDto",
     "PriceDetailsDto",
     "TransactionDto",
     "UserDto",

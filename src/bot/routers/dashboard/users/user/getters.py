@@ -21,9 +21,9 @@ from src.core.utils.formatters import (
     i18n_format_traffic_limit,
 )
 from src.infrastructure.database.models.dto import UserDto
-from src.infrastructure.database.models.dto.subscription import RemnaSubscriptionDto
+from src.infrastructure.database.models.dto.subscription import KeystoneSubscriptionDto
 from src.services.plan import PlanService
-from src.services.remnawave import RemnawaveService
+from src.services.keystonewave import RemnawaveService
 from src.services.settings import SettingsService
 from src.services.subscription import SubscriptionService
 from src.services.transaction import TransactionService
@@ -89,8 +89,8 @@ async def subscription_getter(
     dialog_manager: DialogManager,
     user_service: FromDishka[UserService],
     subscription_service: FromDishka[SubscriptionService],
-    remnawave_service: FromDishka[RemnawaveService],
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave_service: FromDishka[RemnawaveService],
+    keystonewave: FromDishka[RemnawaveSDK],
     **kwargs: Any,
 ) -> dict[str, Any]:
     target_telegram_id = dialog_manager.dialog_data["target_telegram_id"]
@@ -104,20 +104,20 @@ async def subscription_getter(
     if not subscription:
         raise ValueError(f"Current subscription for user '{target_telegram_id}' not found")
 
-    remna_user = await remnawave_service.get_user(subscription.user_remna_id)
+    keystone_user = await keystonewave_service.get_user(subscription.user_remna_id)
 
-    if not remna_user:
-        raise ValueError(f"User Remnawave '{target_telegram_id}' not found")
+    if not keystone_user:
+        raise ValueError(f"User KeystoneWave '{target_telegram_id}' not found")
 
     squads = (
-        ", ".join(squad.name for squad in remna_user.active_internal_squads)
-        if remna_user.active_internal_squads
+        ", ".join(squad.name for squad in keystone_user.active_internal_squads)
+        if keystone_user.active_internal_squads
         else False
     )
 
     last_node: Optional[GetOneNodeResponseDto] = None
-    if remna_user.last_connected_node_uuid:
-        result = await remnawave.nodes.get_one_node(remna_user.last_connected_node_uuid)
+    if keystone_user.last_connected_node_uuid:
+        result = await keystonewave.nodes.get_one_node(keystone_user.last_connected_node_uuid)
         last_node = result
 
     return {
@@ -125,17 +125,17 @@ async def subscription_getter(
         "is_active": subscription.is_active,
         "has_devices_limit": subscription.has_devices_limit,
         "has_traffic_limit": subscription.has_traffic_limit,
-        "url": remna_user.subscription_url,
+        "url": keystone_user.subscription_url,
         #
         "subscription_id": str(subscription.user_remna_id),
         "subscription_status": subscription.get_status,
         "traffic_used": i18n_format_bytes_to_unit(
-            remna_user.used_traffic_bytes,
+            keystone_user.used_traffic_bytes,
             min_unit=ByteUnitKey.MEGABYTE,
         ),
         "traffic_limit": (
-            i18n_format_bytes_to_unit(remna_user.traffic_limit_bytes)
-            if remna_user.traffic_limit_bytes and remna_user.traffic_limit_bytes > 0
+            i18n_format_bytes_to_unit(keystone_user.traffic_limit_bytes)
+            if keystone_user.traffic_limit_bytes and keystone_user.traffic_limit_bytes > 0
             else i18n_format_traffic_limit(-1)
         ),
         "device_limit": i18n_format_device_limit(subscription.device_limit),
@@ -143,13 +143,13 @@ async def subscription_getter(
         #
         "squads": squads,
         "first_connected_at": (
-            remna_user.first_connected.strftime(DATETIME_FORMAT)
-            if remna_user.first_connected
+            keystone_user.first_connected.strftime(DATETIME_FORMAT)
+            if keystone_user.first_connected
             else False
         ),
         "last_connected_at": (
-            remna_user.first_connected.strftime(DATETIME_FORMAT)
-            if remna_user.first_connected
+            keystone_user.first_connected.strftime(DATETIME_FORMAT)
+            if keystone_user.first_connected
             else False
         ),
         "node_name": last_node.name if last_node else False,
@@ -168,7 +168,7 @@ async def devices_getter(
     dialog_manager: DialogManager,
     user_service: FromDishka[UserService],
     subscription_service: FromDishka[SubscriptionService],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
     **kwargs: Any,
 ) -> dict[str, Any]:
     target_telegram_id = dialog_manager.dialog_data["target_telegram_id"]
@@ -182,7 +182,7 @@ async def devices_getter(
     if not subscription:
         raise ValueError(f"Current subscription for user '{target_telegram_id}' not found")
 
-    devices = await remnawave_service.get_devices_user(target_user)
+    devices = await keystonewave_service.get_devices_user(target_user)
 
     if not devices:
         raise ValueError(f"Devices not found for user '{target_telegram_id}'")
@@ -266,7 +266,7 @@ async def device_limit_getter(
 async def squads_getter(
     dialog_manager: DialogManager,
     subscription_service: FromDishka[SubscriptionService],
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave: FromDishka[RemnawaveSDK],
     **kwargs: Any,
 ) -> dict[str, Any]:
     target_telegram_id = dialog_manager.dialog_data["target_telegram_id"]
@@ -275,13 +275,13 @@ async def squads_getter(
     if not subscription:
         raise ValueError(f"Current subscription for user '{target_telegram_id}' not found")
 
-    internal_response = await remnawave.internal_squads.get_internal_squads()
+    internal_response = await keystonewave.internal_squads.get_internal_squads()
     internal_dict = {s.uuid: s.name for s in internal_response.internal_squads}
     internal_squads_names = ", ".join(
         internal_dict.get(squad, str(squad)) for squad in subscription.internal_squads
     )
 
-    external_response = await remnawave.external_squads.get_external_squads()
+    external_response = await keystonewave.external_squads.get_external_squads()
     external_dict = {s.uuid: s.name for s in external_response.external_squads}
     external_squad_name = (
         external_dict.get(subscription.external_squad) if subscription.external_squad else False
@@ -297,7 +297,7 @@ async def squads_getter(
 async def internal_squads_getter(
     dialog_manager: DialogManager,
     subscription_service: FromDishka[SubscriptionService],
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave: FromDishka[RemnawaveSDK],
     **kwargs: Any,
 ) -> dict[str, Any]:
     target_telegram_id = dialog_manager.dialog_data["target_telegram_id"]
@@ -306,7 +306,7 @@ async def internal_squads_getter(
     if not subscription:
         raise ValueError(f"Current subscription for user '{target_telegram_id}' not found")
 
-    result = await remnawave.internal_squads.get_internal_squads()
+    result = await keystonewave.internal_squads.get_internal_squads()
 
     squads = [
         {
@@ -324,7 +324,7 @@ async def internal_squads_getter(
 async def external_squads_getter(
     dialog_manager: DialogManager,
     subscription_service: FromDishka[SubscriptionService],
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave: FromDishka[RemnawaveSDK],
     **kwargs: Any,
 ) -> dict[str, Any]:
     target_telegram_id = dialog_manager.dialog_data["target_telegram_id"]
@@ -333,7 +333,7 @@ async def external_squads_getter(
     if not subscription:
         raise ValueError(f"Current subscription for user '{target_telegram_id}' not found")
 
-    result = await remnawave.external_squads.get_external_squads()
+    result = await keystonewave.external_squads.get_external_squads()
     existing_squad_uuids = {squad.uuid for squad in result.external_squads}
 
     if subscription.external_squad and subscription.external_squad not in existing_squad_uuids:
@@ -543,7 +543,7 @@ async def sync_getter(  # noqa: C901
     i18n: FromDishka[TranslatorRunner],
     user_service: FromDishka[UserService],
     subscription_service: FromDishka[SubscriptionService],
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave: FromDishka[RemnawaveSDK],
     **kwargs: Any,
 ) -> dict[str, Any]:
     target_telegram_id = dialog_manager.dialog_data["target_telegram_id"]
@@ -554,23 +554,23 @@ async def sync_getter(  # noqa: C901
 
     bot_subscription = await subscription_service.get_current(target_telegram_id)
 
-    remna_subscription: Optional[RemnaSubscriptionDto] = None
+    keystone_subscription: Optional[KeystoneSubscriptionDto] = None
 
     try:
-        result = await remnawave.users.get_users_by_telegram_id(telegram_id=str(target_telegram_id))
+        result = await keystonewave.users.get_users_by_telegram_id(telegram_id=str(target_telegram_id))
     except NotFoundError:
         result = None
 
     if result:
-        remna_user = result[0]
-        remna_subscription = RemnaSubscriptionDto.from_remna_user(remna_user)
+        keystone_user = result[0]
+        keystone_subscription = KeystoneSubscriptionDto.from_keystone_user(keystone_user)
 
     bot_info = ""
     remna_info = ""
     bot_version = ""
     remna_version = ""
 
-    internal_response = await remnawave.internal_squads.get_internal_squads()
+    internal_response = await keystonewave.internal_squads.get_internal_squads()
     internal_dict = {s.uuid: s.name for s in internal_response.internal_squads}
 
     if bot_subscription:
@@ -597,24 +597,24 @@ async def sync_getter(  # noqa: C901
             **get_translated_kwargs(i18n, bot_kwargs),
         )
 
-    if remna_subscription:
+    if keystone_subscription:
         internal_squads_names = ", ".join(
-            internal_dict.get(squad, str(squad)) for squad in remna_subscription.internal_squads
+            internal_dict.get(squad, str(squad)) for squad in keystone_subscription.internal_squads
         )
         remna_kwargs = {
-            "id": str(remna_subscription.uuid),
-            "status": remna_subscription.status,
-            "url": remna_subscription.url,
-            "traffic_limit": i18n_format_traffic_limit(remna_subscription.traffic_limit),
-            "device_limit": i18n_format_device_limit(remna_subscription.device_limit),
-            "expire_time": i18n_format_expire_time(remna_subscription.expire_at),
+            "id": str(keystone_subscription.uuid),
+            "status": keystone_subscription.status,
+            "url": keystone_subscription.url,
+            "traffic_limit": i18n_format_traffic_limit(keystone_subscription.traffic_limit),
+            "device_limit": i18n_format_device_limit(keystone_subscription.device_limit),
+            "expire_time": i18n_format_expire_time(keystone_subscription.expire_at),
             "internal_squads": internal_squads_names or False,
-            "external_squad": str(remna_subscription.external_squad)
-            if remna_subscription.external_squad
+            "external_squad": str(keystone_subscription.external_squad)
+            if keystone_subscription.external_squad
             else False,
-            "traffic_limit_strategy": remna_subscription.traffic_limit_strategy or False,
-            "tag": remna_subscription.tag or False,
-            "updated_at": remna_user.updated_at,
+            "traffic_limit_strategy": keystone_subscription.traffic_limit_strategy or False,
+            "tag": keystone_subscription.tag or False,
+            "updated_at": keystone_user.updated_at,
         }
         remna_info = i18n.get(
             "msg-user-sync-subscription",
@@ -622,11 +622,11 @@ async def sync_getter(  # noqa: C901
         )
 
     bot_time = bot_subscription.updated_at if bot_subscription else None
-    remna_time = remna_user.updated_at if remna_subscription else None
+    remna_time = keystone_user.updated_at if keystone_subscription else None
 
-    if bot_subscription and remna_subscription:
+    if bot_subscription and keystone_subscription:
         bot_time = bot_subscription.updated_at
-        remna_time = remna_user.updated_at
+        remna_time = keystone_user.updated_at
 
         if bot_time > remna_time:
             bot_version, remna_version = "NEWER", "OLDER"
@@ -642,9 +642,9 @@ async def sync_getter(  # noqa: C901
 
     return {
         "has_bot_subscription": bool(bot_subscription),
-        "has_remna_subscription": bool(remna_subscription),
+        "has_keystone_subscription": bool(keystone_subscription),
         "bot_version": bot_version,
         "remna_version": remna_version,
         "bot_subscription": bot_info,
-        "remna_subscription": remna_info,
+        "keystone_subscription": remna_info,
     }

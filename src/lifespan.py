@@ -19,7 +19,7 @@ from src.infrastructure.taskiq.tasks.updates import check_bot_update
 from src.services.command import CommandService
 from src.services.notification import NotificationService
 from src.services.payment_gateway import PaymentGatewayService
-from src.services.remnawave import RemnawaveService
+from src.services.keystonewave import RemnawaveService
 from src.services.settings import SettingsService
 from src.services.webhook import WebhookService
 
@@ -36,7 +36,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         command_service: CommandService = await startup_container.get(CommandService)
         settings_service: SettingsService = await startup_container.get(SettingsService)
         gateway_service: PaymentGatewayService = await startup_container.get(PaymentGatewayService)
-        remnawave_service: RemnawaveService = await startup_container.get(RemnawaveService)
+        keystonewave_service: RemnawaveService = await startup_container.get(RemnawaveService)
         notification_service: NotificationService = await startup_container.get(NotificationService)
 
         await gateway_service.create_default()
@@ -105,16 +105,16 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     )
 
     try:
-        await remnawave_service.try_connection()
+        await keystonewave_service.try_connection()
     except Exception as exception:
-        logger.exception(f"Remnawave connection failed: {exception}")
+        logger.exception(f"KeystoneWave connection failed: {exception}")
         error_type_name = type(exception).__name__
         error_message = Text(str(exception)[:512])
 
         await notification_service.error_notify(
             traceback_str=traceback.format_exc(),
             payload=MessagePayload.not_deleted(
-                i18n_key="ntf-event-error-remnawave",
+                i18n_key="ntf-event-error-keystonewave",
                 i18n_kwargs={
                     "error": f"{error_type_name}: {error_message.as_html()}",
                 },

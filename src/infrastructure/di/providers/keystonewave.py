@@ -14,17 +14,17 @@ class RemnawaveProvider(Provider):
         logger.debug("Initializing RemnawaveSDK")
 
         headers = {}
-        headers["Authorization"] = f"Bearer {config.remnawave.token.get_secret_value()}"
-        headers["X-Api-Key"] = config.remnawave.caddy_token.get_secret_value()
+        headers["Authorization"] = f"Bearer {config.keystonewave.token.get_secret_value()}"
+        headers["X-Api-Key"] = config.keystonewave.caddy_token.get_secret_value()
 
-        if not config.remnawave.is_external:
+        if not config.keystonewave.is_external:
             headers["x-forwarded-proto"] = "https"
             headers["x-forwarded-for"] = "127.0.0.1"
 
         client = AsyncClient(
-            base_url=f"{config.remnawave.url.get_secret_value()}/api",
+            base_url=f"{config.keystonewave.url.get_secret_value()}/api",
             headers=headers,
-            cookies=config.remnawave.cookies,
+            cookies=config.keystonewave.cookies,
             verify=True,
             timeout=Timeout(connect=15.0, read=25.0, write=10.0, pool=5.0),
         )

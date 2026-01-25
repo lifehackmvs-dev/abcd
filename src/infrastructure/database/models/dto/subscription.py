@@ -24,7 +24,7 @@ from src.core.utils.types import RemnaUserDto
 from .base import TrackableDto
 
 
-class RemnaSubscriptionDto(BaseModel):
+class KeystoneSubscriptionDto(BaseModel):
     uuid: UUID
     status: SubscriptionStatus
     expire_at: datetime
@@ -39,25 +39,25 @@ class RemnaSubscriptionDto(BaseModel):
     external_squad: Optional[UUID] = None
 
     @classmethod
-    def from_remna_user(cls, remna_user: RemnaUserDto) -> "RemnaSubscriptionDto":
+    def from_keystone_user(cls, keystone_user: RemnaUserDto) -> "KeystoneSubscriptionDto":
         return cls(
-            uuid=remna_user.uuid,
-            status=remna_user.status,
-            expire_at=remna_user.expire_at,
-            url=remna_user.subscription_url,
-            traffic_limit=format_bytes_to_gb(remna_user.traffic_limit_bytes),
-            device_limit=format_device_count(remna_user.hwid_device_limit),
-            traffic_limit_strategy=remna_user.traffic_limit_strategy,
-            tag=remna_user.tag,
-            internal_squads=[squad.uuid for squad in remna_user.active_internal_squads],
-            external_squad=remna_user.external_squad_uuid,
+            uuid=keystone_user.uuid,
+            status=keystone_user.status,
+            expire_at=keystone_user.expire_at,
+            url=keystone_user.subscription_url,
+            traffic_limit=format_bytes_to_gb(keystone_user.traffic_limit_bytes),
+            device_limit=format_device_count(keystone_user.hwid_device_limit),
+            traffic_limit_strategy=keystone_user.traffic_limit_strategy,
+            tag=keystone_user.tag,
+            internal_squads=[squad.uuid for squad in keystone_user.active_internal_squads],
+            external_squad=keystone_user.external_squad_uuid,
         )
 
 
 class BaseSubscriptionDto(TrackableDto):
     id: Optional[int] = Field(default=None, frozen=True)
 
-    user_remna_id: UUID
+    user_keystone_id: UUID
 
     status: SubscriptionStatus = SubscriptionStatus.ACTIVE
     is_trial: bool = False

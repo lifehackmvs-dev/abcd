@@ -25,13 +25,13 @@ from src.core.utils.validators import is_double_click, parse_int
 from src.infrastructure.database.models.dto import UserDto
 from src.infrastructure.database.models.dto.plan import PlanSnapshotDto
 from src.infrastructure.database.models.dto.subscription import (
-    RemnaSubscriptionDto,
+    KeystoneSubscriptionDto,
     SubscriptionDto,
 )
 from src.infrastructure.taskiq.tasks.redirects import redirect_to_main_menu_task
 from src.services.notification import NotificationService
 from src.services.plan import PlanService
-from src.services.remnawave import RemnawaveService
+from src.services.keystonewave import RemnawaveService
 from src.services.subscription import SubscriptionService
 from src.services.transaction import TransactionService
 from src.services.user import UserService
@@ -116,7 +116,7 @@ async def on_active_toggle(
     widget: Button,
     dialog_manager: DialogManager,
     subscription_service: FromDishka[SubscriptionService],
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave: FromDishka[RemnawaveSDK],
 ) -> None:
     user: UserDto = dialog_manager.middleware_data[USER_KEY]
     target_telegram_id = dialog_manager.dialog_data["target_telegram_id"]
@@ -130,7 +130,7 @@ async def on_active_toggle(
     )
 
     remnawave_toggle_status = (
-        remnawave.users.disable_user if subscription.is_active else remnawave.users.enable_user
+        keystonewave.users.disable_user if subscription.is_active else keystonewave.users.enable_user
     )
 
     await remnawave_toggle_status(subscription.user_remna_id)
@@ -148,7 +148,7 @@ async def on_subscription_delete(
     dialog_manager: DialogManager,
     user_service: FromDishka[UserService],
     subscription_service: FromDishka[SubscriptionService],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
     notification_service: FromDishka[NotificationService],
 ) -> None:
     user: UserDto = dialog_manager.middleware_data[USER_KEY]
@@ -167,7 +167,7 @@ async def on_subscription_delete(
         subscription.status = SubscriptionStatus.DELETED
         await subscription_service.update(subscription)
         await user_service.delete_current_subscription(target_telegram_id)
-        await remnawave_service.delete_user(target_user)
+        await keystonewave_service.delete_user(target_user)
         logger.info(f"{log(user)} Deleted subscription for user '{target_telegram_id}'")
         await dialog_manager.switch_to(state=DashboardUser.MAIN)
         return
@@ -188,7 +188,7 @@ async def on_devices(
     widget: Button,
     dialog_manager: DialogManager,
     user_service: FromDishka[UserService],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
     notification_service: FromDishka[NotificationService],
 ) -> None:
     user: UserDto = dialog_manager.middleware_data[USER_KEY]
@@ -198,7 +198,7 @@ async def on_devices(
     if not target_user:
         raise ValueError(f"User '{target_telegram_id}' not found")
 
-    devices = await remnawave_service.get_devices_user(target_user)
+    devices = await keystonewave_service.get_devices_user(target_user)
 
     if not devices:
         await notification_service.notify_user(
@@ -216,7 +216,7 @@ async def on_device_delete(
     widget: Button,
     sub_manager: SubManager,
     user_service: FromDishka[UserService],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
 ) -> None:
     await sub_manager.load_data()
     selected_short_hwid = sub_manager.item_id
@@ -237,7 +237,7 @@ async def on_device_delete(
     if not target_user:
         raise ValueError(f"User '{target_telegram_id}' not found")
 
-    devices = await remnawave_service.delete_device(user=target_user, hwid=full_hwid)
+    devices = await keystonewave_service.delete_device(user=target_user, hwid=full_hwid)
     logger.info(f"{log(user)} Deleted device '{full_hwid}' for user '{target_telegram_id}'")
 
     if devices:
@@ -252,7 +252,7 @@ async def on_reset_traffic(
     widget: Button,
     dialog_manager: DialogManager,
     subscription_service: FromDishka[SubscriptionService],
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave: FromDishka[RemnawaveSDK],
 ) -> None:
     user: UserDto = dialog_manager.middleware_data[USER_KEY]
     target_telegram_id = dialog_manager.dialog_data["target_telegram_id"]
@@ -261,7 +261,7 @@ async def on_reset_traffic(
     if not subscription:
         raise ValueError(f"Current subscription for user '{target_telegram_id}' not found")
 
-    await remnawave.users.reset_user_traffic(subscription.user_remna_id)
+    await keystonewave.users.reset_user_traffic(subscription.user_remna_id)
     logger.info(f"{log(user)} Reset trafic for user '{target_telegram_id}'")
 
 
@@ -373,7 +373,7 @@ async def on_points_select(
     user_service: FromDishka[UserService],
     subscription_service: FromDishka[SubscriptionService],
     notification_service: FromDishka[NotificationService],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
 ) -> None:
     user: UserDto = dialog_manager.middleware_data[USER_KEY]
     logger.info(f"{log(user)} Selected points '{selected_points}'")
@@ -412,7 +412,7 @@ async def on_traffic_limit_select(
     selected_traffic: int,
     user_service: FromDishka[UserService],
     subscription_service: FromDishka[SubscriptionService],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
 ) -> None:
     user: UserDto = dialog_manager.middleware_data[USER_KEY]
     logger.info(f"{log(user)} Selected traffic '{selected_traffic}'")
@@ -430,7 +430,7 @@ async def on_traffic_limit_select(
     subscription.traffic_limit = selected_traffic
     await subscription_service.update(subscription)
 
-    await remnawave_service.updated_user(
+    await keystonewave_service.updated_user(
         user=target_user,
         uuid=subscription.user_remna_id,
         subscription=subscription,
@@ -450,7 +450,7 @@ async def on_traffic_limit_input(
     user_service: FromDishka[UserService],
     subscription_service: FromDishka[SubscriptionService],
     notification_service: FromDishka[NotificationService],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
 ) -> None:
     dialog_manager.show_mode = ShowMode.EDIT
     user: UserDto = dialog_manager.middleware_data[USER_KEY]
@@ -477,7 +477,7 @@ async def on_traffic_limit_input(
     subscription.traffic_limit = number
     await subscription_service.update(subscription)
 
-    await remnawave_service.updated_user(
+    await keystonewave_service.updated_user(
         user=target_user,
         uuid=subscription.user_remna_id,
         subscription=subscription,
@@ -495,7 +495,7 @@ async def on_device_limit_select(
     selected_device: int,
     user_service: FromDishka[UserService],
     subscription_service: FromDishka[SubscriptionService],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
 ) -> None:
     user: UserDto = dialog_manager.middleware_data[USER_KEY]
     logger.info(f"{log(user)} Selected device limit '{selected_device}'")
@@ -513,7 +513,7 @@ async def on_device_limit_select(
     subscription.device_limit = selected_device
     await subscription_service.update(subscription)
 
-    await remnawave_service.updated_user(
+    await keystonewave_service.updated_user(
         user=target_user,
         uuid=subscription.user_remna_id,
         subscription=subscription,
@@ -533,7 +533,7 @@ async def on_device_limit_input(
     user_service: FromDishka[UserService],
     subscription_service: FromDishka[SubscriptionService],
     notification_service: FromDishka[NotificationService],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
 ) -> None:
     dialog_manager.show_mode = ShowMode.EDIT
     user: UserDto = dialog_manager.middleware_data[USER_KEY]
@@ -560,7 +560,7 @@ async def on_device_limit_input(
     subscription.device_limit = number
     await subscription_service.update(subscription)
 
-    await remnawave_service.updated_user(
+    await keystonewave_service.updated_user(
         user=target_user,
         uuid=subscription.user_remna_id,
         subscription=subscription,
@@ -578,7 +578,7 @@ async def on_internal_squad_select(
     selected_squad: UUID,
     user_service: FromDishka[UserService],
     subscription_service: FromDishka[SubscriptionService],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
 ) -> None:
     user: UserDto = dialog_manager.middleware_data[USER_KEY]
     target_telegram_id = dialog_manager.dialog_data["target_telegram_id"]
@@ -601,7 +601,7 @@ async def on_internal_squad_select(
 
     subscription.internal_squads = updated_internal_squads
     await subscription_service.update(subscription)
-    await remnawave_service.updated_user(
+    await keystonewave_service.updated_user(
         user=target_user,
         uuid=subscription.user_remna_id,
         subscription=subscription,
@@ -616,7 +616,7 @@ async def on_external_squad_select(
     selected_squad: UUID,
     user_service: FromDishka[UserService],
     subscription_service: FromDishka[SubscriptionService],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
 ) -> None:
     user: UserDto = dialog_manager.middleware_data[USER_KEY]
     target_telegram_id = dialog_manager.dialog_data["target_telegram_id"]
@@ -638,7 +638,7 @@ async def on_external_squad_select(
         logger.info(f"{log(user)} Set external squad '{selected_squad}'")
 
     await subscription_service.update(subscription)
-    await remnawave_service.updated_user(
+    await keystonewave_service.updated_user(
         user=target_user,
         uuid=subscription.user_remna_id,
         subscription=subscription,
@@ -736,7 +736,7 @@ async def on_duration_select(
     user_service: FromDishka[UserService],
     subscription_service: FromDishka[SubscriptionService],
     notification_service: FromDishka[NotificationService],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
 ) -> None:
     user: UserDto = dialog_manager.middleware_data[USER_KEY]
     logger.info(f"{log(user)} Selected duration '{selected_duration}'")
@@ -765,7 +765,7 @@ async def on_duration_select(
 
     subscription.expire_at = new_expire
     await subscription_service.update(subscription)
-    await remnawave_service.updated_user(
+    await keystonewave_service.updated_user(
         user=target_user,
         uuid=subscription.user_remna_id,
         subscription=subscription,
@@ -784,7 +784,7 @@ async def on_duration_input(
     user_service: FromDishka[UserService],
     subscription_service: FromDishka[SubscriptionService],
     notification_service: FromDishka[NotificationService],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
 ) -> None:
     dialog_manager.show_mode = ShowMode.EDIT
     user: UserDto = dialog_manager.middleware_data[USER_KEY]
@@ -823,7 +823,7 @@ async def on_duration_input(
 
     subscription.expire_at = new_expire
     await subscription_service.update(subscription)
-    await remnawave_service.updated_user(
+    await keystonewave_service.updated_user(
         user=target_user,
         uuid=subscription.user_remna_id,
         subscription=subscription,
@@ -891,7 +891,7 @@ async def on_sync(
     callback: CallbackQuery,
     widget: Button,
     dialog_manager: DialogManager,
-    remnawave: FromDishka[RemnawaveSDK],
+    keystonewave: FromDishka[RemnawaveSDK],
     user_service: FromDishka[UserService],
     subscription_service: FromDishka[SubscriptionService],
     notification_service: FromDishka[NotificationService],
@@ -904,10 +904,10 @@ async def on_sync(
         raise ValueError(f"User '{target_telegram_id}' not found")
 
     bot_subscription = await subscription_service.get_current(target_telegram_id)
-    remna_subscription: Optional[RemnaSubscriptionDto] = None
+    keystone_subscription: Optional[KeystoneSubscriptionDto] = None
 
     try:
-        result = await remnawave.users.get_users_by_telegram_id(telegram_id=str(target_telegram_id))
+        result = await keystonewave.users.get_users_by_telegram_id(telegram_id=str(target_telegram_id))
     except NotFoundError:
         result = None
 
@@ -919,9 +919,9 @@ async def on_sync(
         return
 
     if result:
-        remna_subscription = RemnaSubscriptionDto.from_remna_user(result[0])
+        keystone_subscription = KeystoneSubscriptionDto.from_keystone_user(result[0])
 
-    if SubscriptionService.subscriptions_match(bot_subscription, remna_subscription):
+    if SubscriptionService.subscriptions_match(bot_subscription, keystone_subscription):
         await notification_service.notify_user(
             user=user,
             payload=MessagePayload(i18n_key="ntf-user-sync-already"),
@@ -936,8 +936,8 @@ async def on_sync_from_remnawave(
     callback: CallbackQuery,
     widget: Button,
     dialog_manager: DialogManager,
-    remnawave: FromDishka[RemnawaveSDK],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave: FromDishka[RemnawaveSDK],
+    keystonewave_service: FromDishka[RemnawaveService],
     subscription_service: FromDishka[SubscriptionService],
     user_service: FromDishka[UserService],
     notification_service: FromDishka[NotificationService],
@@ -952,7 +952,7 @@ async def on_sync_from_remnawave(
     subscription = await subscription_service.get_current(target_telegram_id)
 
     try:
-        result = await remnawave.users.get_users_by_telegram_id(telegram_id=str(target_telegram_id))
+        result = await keystonewave.users.get_users_by_telegram_id(telegram_id=str(target_telegram_id))
     except NotFoundError:
         result = None
 
@@ -963,7 +963,7 @@ async def on_sync_from_remnawave(
 
         await user_service.delete_current_subscription(user.telegram_id)
     else:
-        await remnawave_service.sync_user(result[0], creating=False)
+        await keystonewave_service.sync_user(result[0], creating=False)
 
     await notification_service.notify_user(
         user=user,
@@ -978,7 +978,7 @@ async def on_sync_from_remnashop(
     widget: Button,
     dialog_manager: DialogManager,
     subscription_service: FromDishka[SubscriptionService],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
     user_service: FromDishka[UserService],
     notification_service: FromDishka[NotificationService],
 ) -> None:
@@ -992,23 +992,23 @@ async def on_sync_from_remnashop(
     subscription = await subscription_service.get_current(target_telegram_id)
 
     if not subscription:
-        await remnawave_service.delete_user(target_user)
+        await keystonewave_service.delete_user(target_user)
     else:
-        remna_user = await remnawave_service.get_user(subscription.user_remna_id)
-        if remna_user:
-            await remnawave_service.updated_user(
+        keystone_user = await keystonewave_service.get_user(subscription.user_remna_id)
+        if keystone_user:
+            await keystonewave_service.updated_user(
                 user=target_user,
                 uuid=subscription.user_remna_id,
                 subscription=subscription,
             )
 
         else:
-            created_user = await remnawave_service.create_user(
+            created_user = await keystonewave_service.create_user(
                 user=target_user,
                 subscription=subscription,
                 force=True,
             )
-            await remnawave_service.sync_user(created_user, creating=False)
+            await keystonewave_service.sync_user(created_user, creating=False)
 
     await notification_service.notify_user(
         user=user,
@@ -1067,7 +1067,7 @@ async def on_subscription_duration_select(
     user_service: FromDishka[UserService],
     plan_service: FromDishka[PlanService],
     subscription_service: FromDishka[SubscriptionService],
-    remnawave_service: FromDishka[RemnawaveService],
+    keystonewave_service: FromDishka[RemnawaveService],
 ) -> None:
     user: UserDto = dialog_manager.middleware_data[USER_KEY]
     logger.info(f"{log(user)} Selected duration '{selected_duration}'")
@@ -1087,26 +1087,26 @@ async def on_subscription_duration_select(
     subscription = await subscription_service.get_current(target_telegram_id)
 
     if subscription:
-        remna_user = await remnawave_service.updated_user(
+        keystone_user = await keystonewave_service.updated_user(
             user=target_user,
             uuid=subscription.user_remna_id,
             plan=plan_snapshot,
             reset_traffic=True,
         )
     else:
-        remna_user = await remnawave_service.create_user(user=target_user, plan=plan_snapshot)
+        keystone_user = await keystonewave_service.create_user(user=target_user, plan=plan_snapshot)
 
     new_subscription = SubscriptionDto(
-        user_remna_id=remna_user.uuid,
-        status=remna_user.status,
+        user_remna_id=keystone_user.uuid,
+        status=keystone_user.status,
         traffic_limit=plan.traffic_limit,
         device_limit=plan.device_limit,
         traffic_limit_strategy=plan.traffic_limit_strategy,
         tag=plan.tag,
         internal_squads=plan.internal_squads,
         external_squad=plan.external_squad,
-        expire_at=remna_user.expire_at,
-        url=remna_user.subscription_url,
+        expire_at=keystone_user.expire_at,
+        url=keystone_user.subscription_url,
         plan=plan_snapshot,
     )
     await subscription_service.create(target_user, new_subscription)
