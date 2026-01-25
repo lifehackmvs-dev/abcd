@@ -15,7 +15,7 @@ from aiogram_dialog.widgets.text import Format
 from magic_filter import F
 
 from src.bot.keyboards import main_menu_button
-from src.bot.states import DashboardRemnashop, RemnashopGateways
+from src.bot.states import DashboardKeystonetech, KeystonetechGateways
 from src.bot.widgets import Banner, I18nFormat, IgnoreUpdate
 from src.core.enums import BannerName, Currency
 
@@ -65,27 +65,27 @@ gateways = Window(
         SwitchTo(
             text=I18nFormat("btn-gateways-placement"),
             id="placement",
-            state=RemnashopGateways.PLACEMENT,
+            state=KeystonetechGateways.PLACEMENT,
         ),
     ),
     Row(
         SwitchTo(
             text=I18nFormat("btn-gateways-default-currency"),
             id="default_currency",
-            state=RemnashopGateways.CURRENCY,
+            state=KeystonetechGateways.CURRENCY,
         ),
     ),
     Row(
         Start(
             text=I18nFormat("btn-back"),
             id="back",
-            state=DashboardRemnashop.MAIN,
+            state=DashboardKeystonetech.MAIN,
             mode=StartMode.RESET_STACK,
         ),
         *main_menu_button,
     ),
     IgnoreUpdate(),
-    state=RemnashopGateways.MAIN,
+    state=KeystonetechGateways.MAIN,
     getter=gateways_getter,
 )
 
@@ -114,11 +114,11 @@ gateway_settings = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopGateways.MAIN,
+            state=KeystonetechGateways.MAIN,
         ),
     ),
     IgnoreUpdate(),
-    state=RemnashopGateways.SETTINGS,
+    state=KeystonetechGateways.SETTINGS,
     getter=gateway_getter,
 )
 
@@ -129,12 +129,12 @@ gateway_field = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopGateways.SETTINGS,
+            state=KeystonetechGateways.SETTINGS,
         ),
     ),
     MessageInput(func=on_field_input),
     IgnoreUpdate(),
-    state=RemnashopGateways.FIELD,
+    state=KeystonetechGateways.FIELD,
     getter=field_getter,
 )
 
@@ -160,11 +160,11 @@ default_currency = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopGateways.MAIN,
+            state=KeystonetechGateways.MAIN,
         ),
     ),
     IgnoreUpdate(),
-    state=RemnashopGateways.CURRENCY,
+    state=KeystonetechGateways.CURRENCY,
     getter=currency_getter,
 )
 
@@ -191,11 +191,11 @@ placement = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopGateways.MAIN,
+            state=KeystonetechGateways.MAIN,
         ),
     ),
     IgnoreUpdate(),
-    state=RemnashopGateways.PLACEMENT,
+    state=KeystonetechGateways.PLACEMENT,
     getter=placement_getter,
 )
 

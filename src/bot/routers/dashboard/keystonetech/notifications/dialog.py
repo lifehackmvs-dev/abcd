@@ -3,7 +3,7 @@ from aiogram_dialog.widgets.kbd import Column, Row, Select, Start, SwitchTo
 from magic_filter import F
 
 from src.bot.keyboards import main_menu_button
-from src.bot.states import DashboardRemnashop, RemnashopNotifications
+from src.bot.states import DashboardKeystonetech, KeystonetechNotifications
 from src.bot.widgets import Banner, I18nFormat, IgnoreUpdate
 from src.core.enums import BannerName, SystemNotificationType, UserNotificationType
 
@@ -17,26 +17,26 @@ notifications = Window(
         SwitchTo(
             text=I18nFormat("btn-notifications-user"),
             id="users",
-            state=RemnashopNotifications.USER,
+            state=KeystonetechNotifications.USER,
         ),
     ),
     Row(
         SwitchTo(
             text=I18nFormat("btn-notifications-system"),
             id="system",
-            state=RemnashopNotifications.SYSTEM,
+            state=KeystonetechNotifications.SYSTEM,
         ),
     ),
     Row(
         Start(
             text=I18nFormat("btn-back"),
             id="back",
-            state=DashboardRemnashop.MAIN,
+            state=DashboardKeystonetech.MAIN,
         ),
         *main_menu_button,
     ),
     IgnoreUpdate(),
-    state=RemnashopNotifications.MAIN,
+    state=KeystonetechNotifications.MAIN,
 )
 
 user = Window(
@@ -60,11 +60,11 @@ user = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopNotifications.MAIN,
+            state=KeystonetechNotifications.MAIN,
         ),
     ),
     IgnoreUpdate(),
-    state=RemnashopNotifications.USER,
+    state=KeystonetechNotifications.USER,
     getter=user_types_getter,
 )
 
@@ -89,11 +89,11 @@ system = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopNotifications.MAIN,
+            state=KeystonetechNotifications.MAIN,
         ),
     ),
     IgnoreUpdate(),
-    state=RemnashopNotifications.SYSTEM,
+    state=KeystonetechNotifications.SYSTEM,
     getter=system_types_getter,
 )
 

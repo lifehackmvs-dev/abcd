@@ -70,7 +70,7 @@ from .handlers import (
     on_subscription_duration_select,
     on_subscription_select,
     on_sync,
-    on_sync_from_remnashop,
+    on_sync_from_keystonetech,
     on_sync_from_remnawave,
     on_traffic_limit_input,
     on_traffic_limit_select,

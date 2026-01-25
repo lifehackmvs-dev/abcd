@@ -6,10 +6,10 @@ from .validators import validate_not_change_me
 
 
 class DatabaseConfig(BaseConfig, env_prefix="DATABASE_"):
-    host: str = "remnashop-db"
+    host: str = "keystonetech-db"
     port: int = 5432
-    name: str = "remnashop"
-    user: str = "remnashop"
+    name: str = "keystonetech"
+    user: str = "keystonetech"
     password: SecretStr
 
     echo: bool = False

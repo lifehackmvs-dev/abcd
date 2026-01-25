@@ -12,7 +12,7 @@ from loguru import logger
 from remnapy import RemnawaveSDK
 from remnapy.enums.users import TrafficLimitStrategy
 
-from src.bot.states import RemnashopPlans
+from src.bot.states import KeystonetechPlans
 from src.core.constants import TAG_REGEX, USER_KEY
 from src.core.enums import Currency, PlanAvailability, PlanType
 from src.core.utils.adapter import DialogDataAdapter
@@ -45,7 +45,7 @@ async def on_plan_select(
     adapter.save(plan)
 
     sub_manager.manager.dialog_data["is_edit"] = True
-    await sub_manager.switch_to(state=RemnashopPlans.CONFIGURATOR)
+    await sub_manager.switch_to(state=KeystonetechPlans.CONFIGURATOR)
 
 
 @inject
@@ -89,7 +89,7 @@ async def on_plan_delete(
             payload=MessagePayload(i18n_key="ntf-plan-deleted-success"),
         )
         logger.info(f"{log(user)} Deleted plan ID '{plan.id}'")
-        await dialog_manager.start(state=RemnashopPlans.MAIN, mode=StartMode.RESET_STACK)
+        await dialog_manager.start(state=KeystonetechPlans.MAIN, mode=StartMode.RESET_STACK)
         return
 
     await notification_service.notify_user(
@@ -137,7 +137,7 @@ async def on_name_input(
     adapter.save(plan)
 
     logger.info(f"{log(user)} Successfully set plan name to '{plan.name}'")
-    await dialog_manager.switch_to(state=RemnashopPlans.CONFIGURATOR)
+    await dialog_manager.switch_to(state=KeystonetechPlans.CONFIGURATOR)
 
 
 @inject
@@ -274,7 +274,7 @@ async def on_type_select(
     adapter.save(plan)
 
     logger.info(f"{log(user)} Successfully updated plan type to '{plan.type.name}'")
-    await dialog_manager.switch_to(state=RemnashopPlans.CONFIGURATOR)
+    await dialog_manager.switch_to(state=KeystonetechPlans.CONFIGURATOR)
 
 
 async def on_availability_select(
@@ -296,7 +296,7 @@ async def on_availability_select(
     adapter.save(plan)
 
     logger.info(f"{log(user)} Successfully updated plan availability to '{plan.availability}'")
-    await dialog_manager.switch_to(state=RemnashopPlans.CONFIGURATOR)
+    await dialog_manager.switch_to(state=KeystonetechPlans.CONFIGURATOR)
 
 
 async def on_active_toggle(
@@ -348,7 +348,7 @@ async def on_traffic_input(
     adapter.save(plan)
 
     logger.info(f"{log(user)} Successfully set plan traffic limit to '{plan.traffic_limit}'")
-    await dialog_manager.switch_to(state=RemnashopPlans.CONFIGURATOR)
+    await dialog_manager.switch_to(state=KeystonetechPlans.CONFIGURATOR)
 
 
 async def on_strategy_select(
@@ -402,7 +402,7 @@ async def on_devices_input(
     adapter.save(plan)
 
     logger.info(f"{log(user)} Successfully set plan device limit to '{plan.device_limit}'")
-    await dialog_manager.switch_to(state=RemnashopPlans.CONFIGURATOR)
+    await dialog_manager.switch_to(state=KeystonetechPlans.CONFIGURATOR)
 
 
 async def on_duration_select(
@@ -413,7 +413,7 @@ async def on_duration_select(
     user: UserDto = sub_manager.middleware_data[USER_KEY]
     sub_manager.dialog_data["selected_duration"] = int(sub_manager.item_id)
     logger.debug(f"{log(user)} Selected duration '{sub_manager.item_id}' days")
-    await sub_manager.switch_to(state=RemnashopPlans.PRICES)
+    await sub_manager.switch_to(state=KeystonetechPlans.PRICES)
 
 
 @inject
@@ -497,7 +497,7 @@ async def on_duration_input(
     adapter.save(plan)
 
     logger.info(f"{log(user)} New duration '{number}' days added to plan")
-    await dialog_manager.switch_to(state=RemnashopPlans.DURATIONS)
+    await dialog_manager.switch_to(state=KeystonetechPlans.DURATIONS)
 
 
 async def on_currency_select(
@@ -509,7 +509,7 @@ async def on_currency_select(
     user: UserDto = dialog_manager.middleware_data[USER_KEY]
     logger.info(f"{log(user)} Selected currency '{selected_currency}'")
     dialog_manager.dialog_data["selected_currency"] = selected_currency.value
-    await dialog_manager.switch_to(state=RemnashopPlans.PRICE)
+    await dialog_manager.switch_to(state=KeystonetechPlans.PRICE)
 
 
 @inject
@@ -567,7 +567,7 @@ async def on_price_input(
             break
 
     adapter.save(plan)
-    await dialog_manager.switch_to(state=RemnashopPlans.PRICES)
+    await dialog_manager.switch_to(state=KeystonetechPlans.PRICES)
 
 
 @inject
@@ -650,7 +650,7 @@ async def on_squads(
         )
         return
 
-    await dialog_manager.switch_to(state=RemnashopPlans.SQUADS)
+    await dialog_manager.switch_to(state=KeystonetechPlans.SQUADS)
 
 
 @inject
@@ -792,4 +792,4 @@ async def on_confirm_plan(  # noqa: C901
         )
 
     await dialog_manager.reset_stack()
-    await dialog_manager.start(state=RemnashopPlans.MAIN)
+    await dialog_manager.start(state=KeystonetechPlans.MAIN)

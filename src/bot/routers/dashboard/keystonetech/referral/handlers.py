@@ -6,7 +6,7 @@ from dishka import FromDishka
 from dishka.integrations.aiogram_dialog import inject
 from loguru import logger
 
-from src.bot.states import RemnashopReferral
+from src.bot.states import KeystonetechReferral
 from src.core.constants import USER_KEY
 from src.core.enums import (
     ReferralAccrualStrategy,
@@ -63,7 +63,7 @@ async def on_level_select(
     await settings_service.update(settings)
 
     logger.info(f"{log(user)} Successfully updated referral level to '{selected_level}'")
-    await dialog_manager.switch_to(state=RemnashopReferral.MAIN)
+    await dialog_manager.switch_to(state=KeystonetechReferral.MAIN)
 
 
 @inject
@@ -82,7 +82,7 @@ async def on_reward_select(
     await settings_service.update(settings)
 
     logger.info(f"{log(user)} Successfully updated referral reward to '{selected_reward}'")
-    await dialog_manager.switch_to(state=RemnashopReferral.MAIN)
+    await dialog_manager.switch_to(state=KeystonetechReferral.MAIN)
 
 
 @inject
@@ -103,7 +103,7 @@ async def on_accrual_strategy_select(
     logger.info(
         f"{log(user)} Successfully updated referral accrual strategy to '{selected_strategy}'"
     )
-    await dialog_manager.switch_to(state=RemnashopReferral.MAIN)
+    await dialog_manager.switch_to(state=KeystonetechReferral.MAIN)
 
 
 @inject
@@ -124,7 +124,7 @@ async def on_reward_strategy_select(
     logger.info(
         f"{log(user)} Successfully updated referral reward strategy to '{selected_strategy}'"
     )
-    await dialog_manager.switch_to(state=RemnashopReferral.MAIN)
+    await dialog_manager.switch_to(state=KeystonetechReferral.MAIN)
 
 
 @inject

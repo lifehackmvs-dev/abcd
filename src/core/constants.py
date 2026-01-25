@@ -19,10 +19,10 @@ API_V1: Final[str] = "/api/v1"
 BOT_WEBHOOK_PATH: Final[str] = "/telegram"
 PAYMENTS_WEBHOOK_PATH: Final[str] = "/payments"
 REMNAWAVE_WEBHOOK_PATH: Final[str] = "/remnawave"
-REPOSITORY: Final[str] = "https://github.com/snoups/remnashop"
+REPOSITORY: Final[str] = "https://github.com/keystone-tech/keystonetech"
 
 TIMEZONE: Final[timezone] = timezone.utc
-REMNASHOP_PREFIX: Final[str] = "rs_"
+KEYSTONETECH_PREFIX: Final[str] = "kt_"
 PURCHASE_PREFIX: Final[str] = "purchase_"
 GOTO_PREFIX: Final[str] = "gt_"
 ENCRYPTED_PREFIX: Final[str] = "enc_"

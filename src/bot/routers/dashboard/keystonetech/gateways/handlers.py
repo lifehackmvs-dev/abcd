@@ -7,7 +7,7 @@ from dishka.integrations.aiogram_dialog import inject
 from loguru import logger
 from pydantic import SecretStr
 
-from src.bot.states import RemnashopGateways
+from src.bot.states import KeystonetechGateways
 from src.core.constants import USER_KEY
 from src.core.enums import Currency
 from src.core.utils.formatters import format_user_log as log
@@ -43,7 +43,7 @@ async def on_gateway_select(
         return
 
     sub_manager.manager.dialog_data["gateway_id"] = gateway_id
-    await sub_manager.switch_to(state=RemnashopGateways.SETTINGS)
+    await sub_manager.switch_to(state=KeystonetechGateways.SETTINGS)
 
 
 @inject
@@ -131,7 +131,7 @@ async def on_field_select(
     user: UserDto = dialog_manager.middleware_data[USER_KEY]
     dialog_manager.dialog_data["selected_field"] = selected_field
     logger.info(f"{log(user)} Selected field '{selected_field}' for editing")
-    await dialog_manager.switch_to(state=RemnashopGateways.FIELD)
+    await dialog_manager.switch_to(state=KeystonetechGateways.FIELD)
 
 
 @inject
@@ -158,7 +158,7 @@ async def on_field_input(
     gateway = await payment_gateway_service.get(gateway_id)
 
     if not gateway or not gateway.settings:
-        await dialog_manager.switch_to(state=RemnashopGateways.MAIN)
+        await dialog_manager.switch_to(state=KeystonetechGateways.MAIN)
         raise ValueError(f"Attempted update of non-existent gateway '{gateway_id}'")
 
     input_value = message.text
@@ -177,7 +177,7 @@ async def on_field_input(
 
     await payment_gateway_service.update(gateway)
     logger.info(f"{log(user)} Updated '{selected_field}' for gateway '{gateway_id}'")
-    await dialog_manager.switch_to(state=RemnashopGateways.SETTINGS)
+    await dialog_manager.switch_to(state=KeystonetechGateways.SETTINGS)
 
 
 @inject
