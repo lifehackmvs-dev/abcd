@@ -15,7 +15,7 @@ from .dashboard import (
     broadcast,
     importer,
     promocodes,
-    remnashop,
+    keystonetech,
     remnawave,
     statistics,
     users,
@@ -47,11 +47,11 @@ def setup_routers(router: Router) -> None:
         broadcast.dialog.router,
         promocodes.dialog.router,
         #
-        remnashop.dialog.router,
-        remnashop.gateways.dialog.router,
-        remnashop.referral.dialog.router,
-        remnashop.notifications.dialog.router,
-        remnashop.plans.dialog.router,
+        keystonetech.dialog.router,
+        keystonetech.gateways.dialog.router,
+        keystonetech.referral.dialog.router,
+        keystonetech.notifications.dialog.router,
+        keystonetech.plans.dialog.router,
         #
         remnawave.dialog.router,
         #

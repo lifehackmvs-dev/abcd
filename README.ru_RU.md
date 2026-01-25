@@ -1,17 +1,17 @@
 <div align="center" markdown>
 
 <p align="center">
-    <a href="https://github.com/snoups/remnashop/blob/main/README.md"><b>ENGLISH</b></a> •
+    <a href="https://github.com/keystonetech/keystonetech/blob/main/README.md"><b>ENGLISH</b></a> •
     <u><b>РУССКИЙ</b></u>
 </p>
 
-![remnashop](https://github.com/user-attachments/assets/57ba5832-4646-45e1-b082-f8f2f5e82c3e)
+![keystonetech](https://github.com/user-attachments/assets/57ba5832-4646-45e1-b082-f8f2f5e82c3e)
 
 **Этот проект представляет собой Telegram-бота для продажи VPN-подписок, интегрированного с Remnawave.**
 
-[![Static Badge](https://img.shields.io/badge/public_group-white?style=social&logo=Telegram&logoColor=blue&logoSize=auto&labelColor=white&link=https%3A%2F%2Ft.me%2Fsn0ups)](https://t.me/remna_shop)
+[![Static Badge](https://img.shields.io/badge/public_group-white?style=social&logo=Telegram&logoColor=blue&logoSize=auto&labelColor=white&link=https%3A%2F%2Ft.me%2Fkeystone_tech)](https://t.me/keystone_tech)
 [![Static Badge](https://img.shields.io/badge/remnawave-white?style=social&logo=Telegram&logoColor=blue&logoSize=auto&labelColor=white&link=https%3A%2F%2Ft.me%2Fsnoups)](https://t.me/+xQs17zMzwCY1NzYy)
-![GitHub Repo stars](https://img.shields.io/github/stars/snoups/remnashop)
+![GitHub Repo stars](https://img.shields.io/github/stars/keystonetech/keystonetech)
 </div>
 
 # ✨ Возможности
@@ -192,7 +192,7 @@
 
 Создайте директорию проекта:
 ```
-mkdir /opt/remnashop && cd /opt/remnashop
+mkdir /opt/keystonetech && cd /opt/keystonetech
 ```
 
 Скачайте файлы `docker-compose.yml` и `.env`, выполнив команды ниже:
@@ -201,16 +201,16 @@ mkdir /opt/remnashop && cd /opt/remnashop
 
     - Для внешней панели **(бот и панель находятся на разных серверах)**:
     ```
-    curl -o docker-compose.yml https://raw.githubusercontent.com/snoups/remnashop/refs/heads/main/docker-compose.prod.external.yml
+    curl -o docker-compose.yml https://raw.githubusercontent.com/keystonetech/keystonetech/refs/heads/main/docker-compose.prod.external.yml
     ```
     - Для внутренней панели **(бот и панель находятся на одном сервере)**:
     ```
-    curl -o docker-compose.yml https://raw.githubusercontent.com/snoups/remnashop/refs/heads/main/docker-compose.prod.internal.yml
+    curl -o docker-compose.yml https://raw.githubusercontent.com/keystonetech/keystonetech/refs/heads/main/docker-compose.prod.internal.yml
     ```
 
 - Скачать `.env`:
     ```
-    curl -o .env https://raw.githubusercontent.com/snoups/remnashop/refs/heads/main/.env.example
+    curl -o .env https://raw.githubusercontent.com/keystonetech/keystonetech/refs/heads/main/.env.example
     ```
 
 
@@ -264,7 +264,7 @@ docker compose up -d && docker compose logs -f -t
 
 ## Шаг 4 – Настройка обратного прокси
 
-Для корректной работы Remnashop требуется настроенный обратный прокси.  
+Для корректной работы KeystoneTech требуется настроенный обратный прокси.  
 Он необходим для получения вебхуков от Telegram, панели Remnawave и платежных систем.
 
 **В этом руководстве не описывается установка или настройка прокси.**  
@@ -275,18 +275,18 @@ docker compose up -d && docker compose logs -f -t
 
 **Добавьте правило для маршрута:**
 
-`https://your-domain/api/v1` -> `http://remnashop:5000`
+`https://your-domain/api/v1` -> `http://keystonetech:5000`
 
 
 ## Шаг 5 – Как обновить
 
 Для обновления и перезапуска бота выполните следующую команду:
 ```
-cd /opt/remnashop && docker compose pull && docker compose down && RESET_ASSETS=true docker compose up -d && docker compose logs -f
+cd /opt/keystonetech && docker compose pull && docker compose down && RESET_ASSETS=true docker compose up -d && docker compose logs -f
 ```
 
 При использовании `RESET_ASSETS=true` выполняются следующие действия:  
-  - Все текущие ассеты сохраняются в резервные копии с отметкой времени (`/opt/remnashop/assets/*.bak`).  
+  - Все текущие ассеты сохраняются в резервные копии с отметкой времени (`/opt/keystonetech/assets/*.bak`).  
   - Загружаются и распаковываются новые ассеты из образа.  
   - После обновления бот гарантированно использует актуальные файлы.  
 
@@ -300,8 +300,8 @@ cd /opt/remnashop && docker compose pull && docker compose down && RESET_ASSETS=
 
 Чтобы задать баннер, назовите его в соответствии со страницей и используйте один из поддерживаемых форматов: `jpg`, `jpeg`, `png`, `gif`, `webp`.
 
-Разместите баннеры по пути: `/opt/remnashop/assets/banners/(locale)/`  
-Пример: `/opt/remnashop/assets/banners/en/menu.gif`
+Разместите баннеры по пути: `/opt/keystonetech/assets/banners/(locale)/`  
+Пример: `/opt/keystonetech/assets/banners/en/menu.gif`
 
 > [!IMPORTANT]
 > Не удаляйте файл `default.jpg` — он необходим для корректной работы.
@@ -309,13 +309,13 @@ cd /opt/remnashop && docker compose pull && docker compose down && RESET_ASSETS=
 
 # 🌐 Переводы
 Вы можете изменить любой файл перевода, расположенный по пути:
-`/opt/remnashop/assets/translations/(locale)/`
+`/opt/keystonetech/assets/translations/(locale)/`
 
 После внесения изменений перезапустите контейнер, чтобы обновления вступили в силу.
 
 > [!IMPORTANT]
 > На данный момент обновления переводов при апдейте бота не сохраняются.  
-> При обновлении ваши предыдущие ассеты будут архивированы в: `/opt/remnashop/assets/*.bak`
+> При обновлении ваши предыдущие ассеты будут архивированы в: `/opt/keystonetech/assets/*.bak`
 
 
 # 💸 Поддержка проекта

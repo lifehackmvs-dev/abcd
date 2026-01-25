@@ -139,7 +139,7 @@ def get_contact_support_keyboard(username: str, text: str) -> InlineKeyboardMark
     return builder.as_markup()
 
 
-def get_remnashop_keyboard() -> InlineKeyboardMarkup:
+def get_keystonetech_keyboard() -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
 
     builder.row(
@@ -149,11 +149,11 @@ def get_remnashop_keyboard() -> InlineKeyboardMarkup:
         ),
         InlineKeyboardButton(
             text="btn-remnashop-telegram",
-            url=f"{T_ME}remna_shop",
+            url=f"{T_ME}keystone_tech",
         ),
         # InlineKeyboardButton(
         #     text="btn-remnashop-guide",
-        #     url=f"{T_ME}remna_shop",
+        #     url=f"{T_ME}keystone_tech",
         # ),
     )
 

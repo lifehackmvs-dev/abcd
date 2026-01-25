@@ -17,7 +17,7 @@ from loguru import logger
 from redis.asyncio import Redis
 
 from src.__version__ import __version__
-from src.bot.keyboards import get_remnashop_keyboard
+from src.bot.keyboards import get_keystonetech_keyboard
 from src.bot.states import Notification
 from src.core.config import AppConfig
 from src.core.constants import REPOSITORY
