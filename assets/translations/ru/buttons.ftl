@@ -58,7 +58,7 @@ btn-dashboard-broadcast = 📢 Рассылка
 btn-dashboard-promocodes = 🎟 Промокоды
 btn-dashboard-access = 🔓 Режим доступа
 btn-dashboard-remnawave = 🌊 RemnaWave
-btn-dashboard-remnashop = 🛍 RemnaShop
+btn-dashboard-remnashop = 🛍 Keystone Tech
 btn-dashboard-importer = 📥 Импорт пользователей
 
 
@@ -217,7 +217,7 @@ btn-access-condition-toggle = { $enabled ->
     }
 
 
-# RemnaShop
+# KeystoneTech
 btn-remnashop-admins = 👮‍♂️ Администраторы
 btn-remnashop-gateways = 🌐 Платежные системы
 btn-remnashop-referral = 👥 Реф. система

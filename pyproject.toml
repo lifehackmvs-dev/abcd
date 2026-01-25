@@ -1,8 +1,8 @@
 [project]
-name = "remnashop"
+name = "keystonetech"
 version = "0.0.0"
 description = "This is a Telegram bot for selling VPN subscriptions. It works with Remnawave"
-authors = [{ name = "snoups" }]
+authors = [{ name = "Keystone Tech" }]
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.12,<3.13"
@@ -30,8 +30,8 @@ dependencies = [
 ]
 
 [project.urls]
-homepage = "https://t.me/@remna_shop"
-repository = "https://github.com/snoups/remnashop"
+homepage = "https://t.me/@keystone_tech"
+repository = "https://github.com/keystonetech/keystonetech"
 
 [dependency-groups]
 dev = [

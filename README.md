@@ -2,16 +2,16 @@
 
 <p align="center">
     <u><b>ENGLISH</b></u> •
-    <a href="https://github.com/snoups/remnashop/blob/main/README.ru_RU.md"><b>РУССКИЙ</b></a>
+    <a href="https://github.com/keystonetech/keystonetech/blob/main/README.ru_RU.md"><b>РУССКИЙ</b></a>
 </p>
 
-![remnashop](https://github.com/user-attachments/assets/57ba5832-4646-45e1-b082-f8f2f5e82c3e)
+![keystonetech](https://github.com/user-attachments/assets/57ba5832-4646-45e1-b082-f8f2f5e82c3e)
 
 **This project is a Telegram bot for selling VPN subscriptions, integrated with Remnawave.**
 
-[![Static Badge](https://img.shields.io/badge/public_group-white?style=social&logo=Telegram&logoColor=blue&logoSize=auto&labelColor=white&link=https%3A%2F%2Ft.me%2Fsn0ups)](https://t.me/remna_shop)
+[![Static Badge](https://img.shields.io/badge/public_group-white?style=social&logo=Telegram&logoColor=blue&logoSize=auto&labelColor=white&link=https%3A%2F%2Ft.me%2Fkeystone_tech)](https://t.me/keystone_tech)
 [![Static Badge](https://img.shields.io/badge/remnawave-white?style=social&logo=Telegram&logoColor=blue&logoSize=auto&labelColor=white&link=https%3A%2F%2Ft.me%2Fsnoups)](https://t.me/+xQs17zMzwCY1NzYy)
-![GitHub Repo stars](https://img.shields.io/github/stars/snoups/remnashop)
+![GitHub Repo stars](https://img.shields.io/github/stars/keystonetech/keystonetech)
 </div>
 
 # ✨ Features
@@ -192,7 +192,7 @@
 
 Create the project directory
 ```
-mkdir /opt/remnashop && cd /opt/remnashop
+mkdir /opt/keystonetech && cd /opt/keystonetech
 ```
 
 Download `docker-compose.yml` compose-file and `.env` by running these commands:
@@ -201,16 +201,16 @@ Download `docker-compose.yml` compose-file and `.env` by running these commands:
 
     - For external panel **(the bot is hosted on a separate server from the panel)**:
     ```
-    curl -o docker-compose.yml https://raw.githubusercontent.com/snoups/remnashop/refs/heads/main/docker-compose.prod.external.yml
+    curl -o docker-compose.yml https://raw.githubusercontent.com/keystonetech/keystonetech/refs/heads/main/docker-compose.prod.external.yml
     ```
     - For internal panel **(the bot and panel are hosted on the same server)**:
     ```
-    curl -o docker-compose.yml https://raw.githubusercontent.com/snoups/remnashop/refs/heads/main/docker-compose.prod.internal.yml
+    curl -o docker-compose.yml https://raw.githubusercontent.com/keystonetech/keystonetech/refs/heads/main/docker-compose.prod.internal.yml
     ```
 
 - Get `.env` file
     ```
-    curl -o .env https://raw.githubusercontent.com/snoups/remnashop/refs/heads/main/.env.example
+    curl -o .env https://raw.githubusercontent.com/keystonetech/keystonetech/refs/heads/main/.env.example
     ```
 
 
@@ -266,7 +266,7 @@ After a few seconds, you should see the bot successfully start.
 
 ## Step 4 - Reverse proxies
 
-A reverse proxy is required to run Remnashop properly.  
+A reverse proxy is required to run KeystoneTech properly.  
 It is needed to receive webhooks from Telegram, the Remnawave panel, and payment systems.
 
 **This guide does not cover how to install or configure a reverse proxy.**  
@@ -277,18 +277,18 @@ You can use any proxy solution, similar to how it is done for [**Remnawave**](ht
 
 **Configure the following path to forward requests to the bot container:**
 
-`https://your-domain/api/v1` -> `http://remnashop:5000`
+`https://your-domain/api/v1` -> `http://keystonetech:5000`
 
 
 ## Step 5 – How to upgrade
 
 To update and restart the bot, run the following command:
 ```
-cd /opt/remnashop && docker compose pull && docker compose down && RESET_ASSETS=true docker compose up -d && docker compose logs -f
+cd /opt/keystonetech && docker compose pull && docker compose down && RESET_ASSETS=true docker compose up -d && docker compose logs -f
 ```
 
 When using `RESET_ASSETS=true`, the following actions are performed:
-  - All current assets are backed up with a timestamp (`/opt/remnashop/assets/*.bak`).
+  - All current assets are backed up with a timestamp (`/opt/keystonetech/assets/*.bak`).
   - New assets from the image are downloaded and unpacked.
   - After the update, the bot will use the latest files.
 
@@ -303,8 +303,8 @@ The bot supports custom banners for each page category and locale: `menu`, `dash
 
 To set a custom banner, name it according to the target page and ensure it uses one of the supported formats: `jpg`, `jpeg`, `png`, `gif`, `webp`.
 
-Banners should be placed in: `/opt/remnashop/assets/banners/(locale)/`  
-Example: `/opt/remnashop/assets/banners/en/menu.gif`
+Banners should be placed in: `/opt/keystonetech/assets/banners/(locale/)`  
+Example: `/opt/keystonetech/assets/banners/en/menu.gif`
 
 > [!IMPORTANT]
 > Do not delete the `default.jpg` file — it is required for proper operation.
