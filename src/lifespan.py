@@ -90,7 +90,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         """  # noqa: W605
     )
     await check_bot_update.kiq()
-    await notification_service.remnashop_notify()
+    await notification_service.keystonetech_notify()
     await asyncio.sleep(2)
     await notification_service.system_notify(
         ntf_type=SystemNotificationType.BOT_LIFETIME,

@@ -4,7 +4,7 @@ from aiogram_dialog.widgets.kbd import Button, Column, Row, Select, Start, Switc
 from magic_filter import F
 
 from src.bot.keyboards import main_menu_button
-from src.bot.routers.dashboard.remnashop.referral.getters import (
+from src.bot.routers.dashboard.keystonetech.referral.getters import (
     accrual_strategy_getter,
     level_getter,
     referral_getter,
@@ -12,7 +12,7 @@ from src.bot.routers.dashboard.remnashop.referral.getters import (
     reward_strategy_getter,
     reward_type_getter,
 )
-from src.bot.routers.dashboard.remnashop.referral.handlers import (
+from src.bot.routers.dashboard.keystonetech.referral.handlers import (
     on_accrual_strategy_select,
     on_enable_toggle,
     on_level_select,
@@ -20,7 +20,7 @@ from src.bot.routers.dashboard.remnashop.referral.handlers import (
     on_reward_select,
     on_reward_strategy_select,
 )
-from src.bot.states import DashboardRemnashop, RemnashopReferral
+from src.bot.states import DashboardKeystoneTech, KeystoneTechReferral
 from src.bot.widgets import Banner, I18nFormat, IgnoreUpdate
 from src.core.enums import (
     BannerName,
@@ -43,45 +43,45 @@ referral = Window(
         SwitchTo(
             text=I18nFormat("btn-referral-level"),
             id="level",
-            state=RemnashopReferral.LEVEL,
+            state=KeystoneTechReferral.LEVEL,
         ),
         SwitchTo(
             text=I18nFormat("btn-referral-reward-type"),
             id="reward_type",
-            state=RemnashopReferral.REWARD_TYPE,
+            state=KeystoneTechReferral.REWARD_TYPE,
         ),
     ),
     Row(
         SwitchTo(
             text=I18nFormat("btn-referral-accrual-strategy"),
             id="accrual_strategy",
-            state=RemnashopReferral.ACCRUAL_STRATEGY,
+            state=KeystoneTechReferral.ACCRUAL_STRATEGY,
         ),
     ),
     Row(
         SwitchTo(
             text=I18nFormat("btn-referral-reward-strategy"),
             id="reward_strategy",
-            state=RemnashopReferral.REWARD_STRATEGY,
+            state=KeystoneTechReferral.REWARD_STRATEGY,
         ),
     ),
     Row(
         SwitchTo(
             text=I18nFormat("btn-referral-reward"),
             id="reward",
-            state=RemnashopReferral.REWARD,
+            state=KeystoneTechReferral.REWARD,
         ),
     ),
     Row(
         Start(
             text=I18nFormat("btn-back"),
             id="back",
-            state=DashboardRemnashop.MAIN,
+            state=DashboardKeystoneTech.MAIN,
         ),
         *main_menu_button,
     ),
     IgnoreUpdate(),
-    state=RemnashopReferral.MAIN,
+    state=KeystoneTechReferral.MAIN,
     getter=referral_getter,
 )
 
@@ -102,11 +102,11 @@ level = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopReferral.MAIN,
+            state=KeystoneTechReferral.MAIN,
         ),
     ),
     IgnoreUpdate(),
-    state=RemnashopReferral.LEVEL,
+    state=KeystoneTechReferral.LEVEL,
     getter=level_getter,
 )
 
@@ -127,11 +127,11 @@ reward_type = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopReferral.MAIN,
+            state=KeystoneTechReferral.MAIN,
         ),
     ),
     IgnoreUpdate(),
-    state=RemnashopReferral.REWARD_TYPE,
+    state=KeystoneTechReferral.REWARD_TYPE,
     getter=reward_type_getter,
 )
 
@@ -142,12 +142,12 @@ reward = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopReferral.MAIN,
+            state=KeystoneTechReferral.MAIN,
         ),
     ),
     MessageInput(func=on_reward_input),
     IgnoreUpdate(),
-    state=RemnashopReferral.REWARD,
+    state=KeystoneTechReferral.REWARD,
     getter=reward_getter,
 )
 
@@ -168,11 +168,11 @@ accrual_strategy = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopReferral.MAIN,
+            state=KeystoneTechReferral.MAIN,
         ),
     ),
     IgnoreUpdate(),
-    state=RemnashopReferral.ACCRUAL_STRATEGY,
+    state=KeystoneTechReferral.ACCRUAL_STRATEGY,
     getter=accrual_strategy_getter,
 )
 
@@ -193,11 +193,11 @@ reward_strategy = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopReferral.MAIN,
+            state=KeystoneTechReferral.MAIN,
         ),
     ),
     IgnoreUpdate(),
-    state=RemnashopReferral.REWARD_STRATEGY,
+    state=KeystoneTechReferral.REWARD_STRATEGY,
     getter=reward_strategy_getter,
 )
 

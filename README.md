@@ -10,7 +10,7 @@
 **This project is a Telegram bot for selling VPN subscriptions, integrated with Remnawave.**
 
 [![Static Badge](https://img.shields.io/badge/public_group-white?style=social&logo=Telegram&logoColor=blue&logoSize=auto&labelColor=white&link=https%3A%2F%2Ft.me%2Fkeystone_tech)](https://t.me/keystone_tech)
-[![Static Badge](https://img.shields.io/badge/remnawave-white?style=social&logo=Telegram&logoColor=blue&logoSize=auto&labelColor=white&link=https%3A%2F%2Ft.me%2Fsnoups)](https://t.me/+xQs17zMzwCY1NzYy)
+[![Static Badge](https://img.shields.io/badge/remnawave-white?style=social&logo=Telegram&logoColor=blue&logoSize=auto&labelColor=white&link=https%3A%2F%2Ft.me%2Fkeystonetech)](https://t.me/+xQs17zMzwCY1NzYy)
 ![GitHub Repo stars](https://img.shields.io/github/stars/keystonetech/keystonetech)
 </div>
 
@@ -312,13 +312,13 @@ Example: `/opt/keystonetech/assets/banners/en/menu.gif`
 
 # 🌐 Translations
 You can edit any translation file located in:
-`/opt/remnashop/assets/translations/(locale)/`
+`/opt/keystonetech/assets/translations/(locale)/`
 
 After making changes, you need to restart the container for the updates to take effect.
 
 > [!IMPORTANT]
 > Currently, translation persistence during bot updates is not supported.  
-> When updating, your previous assets will be archived in: `/opt/remnashop/assets/*.bak`
+> When updating, your previous assets will be archived in: `/opt/keystonetech/assets/*.bak`
 
 
 # 💸 Project Support

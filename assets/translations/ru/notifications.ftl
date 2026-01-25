@@ -74,7 +74,7 @@ ntf-event-bot-shutdown =
 ntf-event-bot-update =
     #EventBotUpdate
 
-    <b>🔅 Событие: Обнаружено обновление Remnashop!</b>
+    <b>🔅 Событие: Обнаружено обновление KeystoneTech!</b>
 
     <blockquote>
     • <b>Текущая версия</b>: { $local_version }

@@ -5,13 +5,13 @@ btn-back-main-menu = ↩️ Вернуться в главное меню
 btn-back-dashboard = ↩️ Вернуться в панель управления
 
 
-# Remnashop
-btn-remnashop-release-latest = 👀 Посмотреть
-btn-remnashop-how-upgrade = ❓ Как обновить
-btn-remnashop-github = ⭐ GitHub
-btn-remnashop-telegram = 👪 Telegram
-btn-remnashop-donate = 💰 Поддержать разработчика
-btn-remnashop-guide = ❓ Инструкция
+# KeystoneTech
+btn-keystonetech-release-latest = 👀 Посмотреть
+btn-keystonetech-how-upgrade = ❓ Как обновить
+btn-keystonetech-github = ⭐ GitHub
+btn-keystonetech-telegram = 👪 Telegram
+btn-keystonetech-donate = 💰 Поддержать разработчика
+btn-keystonetech-guide = ❓ Инструкция
 
 
 # Other
@@ -58,7 +58,7 @@ btn-dashboard-broadcast = 📢 Рассылка
 btn-dashboard-promocodes = 🎟 Промокоды
 btn-dashboard-access = 🔓 Режим доступа
 btn-dashboard-remnawave = 🌊 RemnaWave
-btn-dashboard-remnashop = 🛍 Keystone Tech
+btn-dashboard-keystonetech = 🛍 Keystone Tech
 btn-dashboard-importer = 📥 Импорт пользователей
 
 
@@ -116,7 +116,7 @@ btn-user-message-preview = 👀 Предпросмотр
 btn-user-message-confirm = ✅ Отправить
 btn-user-sync = 🌀 Синхронизировать
 btn-user-sync-remnawave = 🌊 Использовать данные Remnawave
-btn-user-sync-remnashop = 🛍 Использовать данные Remnashop
+btn-user-sync-keystonetech = 🛍 Использовать данные KeystoneTech
 btn-user-give-subscription = 🎁 Выдать подписку
 btn-user-subscription-internal-squads = ⏺️ Внутренние сквады
 btn-user-subscription-external-squads = ⏹️ Внешний сквад
@@ -218,14 +218,14 @@ btn-access-condition-toggle = { $enabled ->
 
 
 # KeystoneTech
-btn-remnashop-admins = 👮‍♂️ Администраторы
-btn-remnashop-gateways = 🌐 Платежные системы
-btn-remnashop-referral = 👥 Реф. система
-btn-remnashop-advertising = 🎯 Реклама
-btn-remnashop-plans = 📦 Планы
-btn-remnashop-notifications = 🔔 Уведомления
-btn-remnashop-logs = 📄 Логи
-btn-remnashop-audit = 🔍 Аудит
+btn-keystonetech-admins = 👮‍♂️ Администраторы
+btn-keystonetech-gateways = 🌐 Платежные системы
+btn-keystonetech-referral = 👥 Реф. система
+btn-keystonetech-advertising = 🎯 Реклама
+btn-keystonetech-plans = 📦 Планы
+btn-keystonetech-notifications = 🔔 Уведомления
+btn-keystonetech-logs = 📄 Логи
+btn-keystonetech-audit = 🔍 Аудит
 
 
 # Gateways

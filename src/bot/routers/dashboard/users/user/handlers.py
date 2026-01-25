@@ -973,7 +973,7 @@ async def on_sync_from_remnawave(
 
 
 @inject
-async def on_sync_from_remnashop(
+async def on_sync_from_keystonetech(
     callback: CallbackQuery,
     widget: Button,
     dialog_manager: DialogManager,

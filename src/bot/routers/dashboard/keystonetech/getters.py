@@ -11,7 +11,7 @@ from src.infrastructure.database.models.dto import UserDto
 from src.services.user import UserService
 
 
-async def remnashop_getter(
+async def keystonetech_getter(
     dialog_manager: DialogManager,
     config: AppConfig,
     **kwargs: Any,

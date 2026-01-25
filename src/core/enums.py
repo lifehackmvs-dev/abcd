@@ -350,7 +350,7 @@ class RemnaUserEvent(StrEnum):
     EXPIRES_IN_72_HOURS = "user.expires_in_72_hours"
     EXPIRES_IN_48_HOURS = "user.expires_in_48_hours"
     EXPIRES_IN_24_HOURS = "user.expires_in_24_hours"
-    EXPIRED_24_HOURS_AGO = "user.expired_24_hours_ago"
+    EXPIRED_24_HOURS_AGO = "user.expired_24_houks_ago"
 
 
 class RemnaUserHwidDevicesEvent(StrEnum):
