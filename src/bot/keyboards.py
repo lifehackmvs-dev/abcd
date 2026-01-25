@@ -144,22 +144,22 @@ def get_keystonetech_keyboard() -> InlineKeyboardMarkup:
 
     builder.row(
         InlineKeyboardButton(
-            text="btn-remnashop-github",
+            text="btn-keystonetech-github",
             url=REPOSITORY,
         ),
         InlineKeyboardButton(
-            text="btn-remnashop-telegram",
+            text="btn-keystonetech-telegram",
             url=f"{T_ME}keystone_tech",
         ),
         # InlineKeyboardButton(
-        #     text="btn-remnashop-guide",
+        #     text="btn-keystonetech-guide",
         #     url=f"{T_ME}keystone_tech",
         # ),
     )
 
     builder.row(
         InlineKeyboardButton(
-            text="btn-remnashop-donate",
+            text="btn-keystonetech-donate",
             url="https://yookassa.ru/my/i/Z8AkHJ_F9sO_/l",
         )
     )
@@ -167,16 +167,16 @@ def get_keystonetech_keyboard() -> InlineKeyboardMarkup:
     return builder.as_markup()
 
 
-def get_remnashop_update_keyboard() -> InlineKeyboardMarkup:
+def get_keystonetech_update_keyboard() -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
 
     builder.row(
         InlineKeyboardButton(
-            text="btn-remnashop-release-latest",
+            text="btn-keystonetech-release-latest",
             url=f"{REPOSITORY}/releases/latest",
         ),
         InlineKeyboardButton(
-            text="btn-remnashop-how-upgrade",
+            text="btn-keystonetech-how-upgrade",
             url=f"{REPOSITORY}?tab=readme-ov-file#step-5--how-to-upgrade",
         ),
     )

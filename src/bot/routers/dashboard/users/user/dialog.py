@@ -70,7 +70,7 @@ from .handlers import (
     on_subscription_duration_select,
     on_subscription_select,
     on_sync,
-    on_sync_from_remnashop,
+    on_sync_from_keystonetech,
     on_sync_from_remnawave,
     on_traffic_limit_input,
     on_traffic_limit_select,
@@ -444,9 +444,9 @@ sync = Window(
     I18nFormat("msg-user-sync"),
     Column(
         Button(
-            text=I18nFormat("btn-user-sync-remnashop"),
-            id="sync_from_remnashop",
-            on_click=on_sync_from_remnashop,
+            text=I18nFormat("btn-user-sync-keystonetech"),
+            id="sync_from_keystonetech",
+            on_click=on_sync_from_keystonetech,
         ),
         Button(
             text=I18nFormat("btn-user-sync-remnawave"),

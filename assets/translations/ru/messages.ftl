@@ -1,5 +1,5 @@
-# Remnashop
-ntf-remnashop-info = 
+# KeystoneTech
+ntf-keystonetech-info = 
     <b>💎 KeystoneTech v{ $version }</b>
 
     Данный проект был создан и поддерживается всего одним <strike>разработчиком</strike> электриком. Поскольку бот полностью БЕСПЛАТНЫЙ и с открытым исходным кодом, он существует только благодаря вашей поддержке.
@@ -389,7 +389,7 @@ msg-user-main =
 msg-user-sync = 
     <b>🌀 Синхронизировать пользователя</b>
 
-    <b>🛍 Remnashop:</b> { $bot_version }
+    <b>🛍 KeystoneTech:</b> { $bot_version }
     <blockquote>
     { $has_bot_subscription -> 
     [0] Данные отсутствуют
@@ -675,7 +675,7 @@ msg-remnawave-inbounds =
 
 
 # KeystoneTech
-msg-remnashop-main = <b>🛍 KeystoneTech v{ $version }</b>
+msg-keystonetech-main = <b>🛍 KeystoneTech v{ $version }</b>
 msg-admins-main = <b>👮‍♂️ Администраторы</b>
 
 

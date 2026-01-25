@@ -7,7 +7,7 @@ from typing import Any, Optional
 
 from loguru import logger
 
-from src.core.constants import IMPORTED_TAG, REMNASHOP_PREFIX
+from src.core.constants import IMPORTED_TAG, KEYSTONETECH_PREFIX
 from src.core.enums import SubscriptionStatus
 from src.core.utils.time import datetime_now
 
@@ -57,7 +57,7 @@ class ImporterService(BaseService):
         )
 
         return {
-            "username": f"{REMNASHOP_PREFIX}{telegram_id}",
+            "username": f"{KEYSTONETECH_PREFIX}{telegram_id}",
             "telegram_id": telegram_id,
             "status": SubscriptionStatus.ACTIVE,
             "expire_at": expire_at,

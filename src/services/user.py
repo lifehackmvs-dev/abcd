@@ -11,7 +11,7 @@ from src.core.config import AppConfig
 from src.core.constants import (
     RECENT_ACTIVITY_MAX_COUNT,
     RECENT_REGISTERED_MAX_COUNT,
-    REMNASHOP_PREFIX,
+    KEYSTONETECH_PREFIX,
     TIME_5M,
     TIME_10M,
 )
@@ -319,17 +319,17 @@ class UserService(BaseService):
                         f"Searched by Telegram ID '{target_telegram_id}', user not found"
                     )
 
-            elif search_query.startswith(REMNASHOP_PREFIX):  # TODO: any username from panel
+            elif search_query.startswith(KEYSTONETECH_PREFIX):  # TODO: any username from panel
                 try:
                     target_id = int(search_query.split("_", maxsplit=1)[1])
                     single_user = await self.get(telegram_id=target_id)
                     if single_user:
                         found_users.append(single_user)
-                        logger.info(f"Searched by Remnashop ID '{target_id}', user found")
+                        logger.info(f"Searched by KeystoneTech ID '{target_id}', user found")
                     else:
-                        logger.warning(f"Searched by Remnashop ID '{target_id}', user not found")
+                        logger.warning(f"Searched by KeystoneTech ID '{target_id}', user not found")
                 except (IndexError, ValueError):
-                    logger.warning(f"Failed to parse Remnashop ID from query '{search_query}'")
+                    logger.warning(f"Failed to parse KeystoneTech ID from query '{search_query}'")
 
             else:
                 found_users = await self.get_by_partial_name(query=search_query)

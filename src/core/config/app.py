@@ -37,7 +37,7 @@ class AppConfig(BaseConfig, env_prefix="APP_"):
     build: BuildConfig = Field(default_factory=BuildConfig)
 
     @property
-    def banners_dir(self) -> Path:
+    def banneks_dir(self) -> Path:
         return self.assets_dir / "banners"
 
     @property

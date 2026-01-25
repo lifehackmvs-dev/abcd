@@ -17,7 +17,7 @@ from magic_filter import F
 from remnapy.enums.users import TrafficLimitStrategy
 
 from src.bot.keyboards import main_menu_button
-from src.bot.states import DashboardRemnashop, RemnashopPlans
+from src.bot.states import DashboardKeystoneTech, KeystoneTechPlans
 from src.bot.widgets import Banner, I18nFormat, IgnoreUpdate
 from src.core.enums import BannerName, Currency, PlanAvailability, PlanType
 
@@ -73,7 +73,7 @@ plans = Window(
         SwitchTo(
             I18nFormat("btn-plans-create"),
             id="create",
-            state=RemnashopPlans.CONFIGURATOR,
+            state=KeystoneTechPlans.CONFIGURATOR,
         ),
     ),
     ListGroup(
@@ -101,13 +101,13 @@ plans = Window(
         Start(
             text=I18nFormat("btn-back"),
             id="back",
-            state=DashboardRemnashop.MAIN,
+            state=DashboardKeystoneTech.MAIN,
             mode=StartMode.RESET_STACK,
         ),
         *main_menu_button,
     ),
     IgnoreUpdate(),
-    state=RemnashopPlans.MAIN,
+    state=KeystoneTechPlans.MAIN,
     getter=plans_getter,
 )
 
@@ -125,37 +125,37 @@ configurator = Window(
         SwitchTo(
             text=I18nFormat("btn-plan-name"),
             id="name",
-            state=RemnashopPlans.NAME,
+            state=KeystoneTechPlans.NAME,
         ),
         SwitchTo(
             text=I18nFormat("btn-plan-description"),
             id="description",
-            state=RemnashopPlans.DESCRIPTION,
+            state=KeystoneTechPlans.DESCRIPTION,
         ),
     ),
     Row(
         SwitchTo(
             text=I18nFormat("btn-plan-availability"),
             id="availability",
-            state=RemnashopPlans.AVAILABILITY,
+            state=KeystoneTechPlans.AVAILABILITY,
         ),
         SwitchTo(
             text=I18nFormat("btn-plan-type"),
             id="type",
-            state=RemnashopPlans.TYPE,
+            state=KeystoneTechPlans.TYPE,
         ),
     ),
     Row(
         SwitchTo(
             text=I18nFormat("btn-plan-traffic"),
             id="traffic",
-            state=RemnashopPlans.TRAFFIC,
+            state=KeystoneTechPlans.TRAFFIC,
             when=~F["is_unlimited_traffic"],
         ),
         SwitchTo(
             text=I18nFormat("btn-plan-devices"),
             id="devices",
-            state=RemnashopPlans.DEVICES,
+            state=KeystoneTechPlans.DEVICES,
             when=~F["is_unlimited_devices"],
         ),
     ),
@@ -163,7 +163,7 @@ configurator = Window(
         SwitchTo(
             text=I18nFormat("btn-plan-tag"),
             id="tag",
-            state=RemnashopPlans.TAG,
+            state=KeystoneTechPlans.TAG,
         ),
         Button(
             text=I18nFormat("btn-plan-squads"),
@@ -175,7 +175,7 @@ configurator = Window(
         SwitchTo(
             text=I18nFormat("btn-plan-allowed"),
             id="allowed",
-            state=RemnashopPlans.ALLOWED,
+            state=KeystoneTechPlans.ALLOWED,
             when=F["availability"] == PlanAvailability.ALLOWED,
         ),
     ),
@@ -183,7 +183,7 @@ configurator = Window(
         SwitchTo(
             text=I18nFormat("btn-plan-durations-prices"),
             id="durations_prices",
-            state=RemnashopPlans.DURATIONS,
+            state=KeystoneTechPlans.DURATIONS,
         ),
     ),
     Row(
@@ -211,12 +211,12 @@ configurator = Window(
         Start(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopPlans.MAIN,
+            state=KeystoneTechPlans.MAIN,
             mode=StartMode.RESET_STACK,
         ),
     ),
     IgnoreUpdate(),
-    state=RemnashopPlans.CONFIGURATOR,
+    state=KeystoneTechPlans.CONFIGURATOR,
     getter=configurator_getter,
 )
 
@@ -227,12 +227,12 @@ plan_name = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopPlans.CONFIGURATOR,
+            state=KeystoneTechPlans.CONFIGURATOR,
         ),
     ),
     MessageInput(func=on_name_input),
     IgnoreUpdate(),
-    state=RemnashopPlans.NAME,
+    state=KeystoneTechPlans.NAME,
     getter=name_getter,
 )
 
@@ -251,12 +251,12 @@ plan_description = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopPlans.CONFIGURATOR,
+            state=KeystoneTechPlans.CONFIGURATOR,
         ),
     ),
     MessageInput(func=on_description_input),
     IgnoreUpdate(),
-    state=RemnashopPlans.DESCRIPTION,
+    state=KeystoneTechPlans.DESCRIPTION,
     getter=description_getter,
 )
 
@@ -275,12 +275,12 @@ plan_tag = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopPlans.CONFIGURATOR,
+            state=KeystoneTechPlans.CONFIGURATOR,
         ),
     ),
     MessageInput(func=on_tag_input),
     IgnoreUpdate(),
-    state=RemnashopPlans.TAG,
+    state=KeystoneTechPlans.TAG,
     getter=tag_getter,
 )
 
@@ -301,11 +301,11 @@ plan_type = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopPlans.CONFIGURATOR,
+            state=KeystoneTechPlans.CONFIGURATOR,
         ),
     ),
     IgnoreUpdate(),
-    state=RemnashopPlans.TYPE,
+    state=KeystoneTechPlans.TYPE,
     getter=type_getter,
 )
 
@@ -326,11 +326,11 @@ plan_availability = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopPlans.CONFIGURATOR,
+            state=KeystoneTechPlans.CONFIGURATOR,
         ),
     ),
     IgnoreUpdate(),
-    state=RemnashopPlans.AVAILABILITY,
+    state=KeystoneTechPlans.AVAILABILITY,
     getter=availability_getter,
 )
 
@@ -355,12 +355,12 @@ plan_traffic = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopPlans.CONFIGURATOR,
+            state=KeystoneTechPlans.CONFIGURATOR,
         ),
     ),
     MessageInput(func=on_traffic_input),
     IgnoreUpdate(),
-    state=RemnashopPlans.TRAFFIC,
+    state=KeystoneTechPlans.TRAFFIC,
     getter=traffic_getter,
 )
 
@@ -371,12 +371,12 @@ plan_devices = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopPlans.CONFIGURATOR,
+            state=KeystoneTechPlans.CONFIGURATOR,
         ),
     ),
     MessageInput(func=on_devices_input),
     IgnoreUpdate(),
-    state=RemnashopPlans.DEVICES,
+    state=KeystoneTechPlans.DEVICES,
 )
 
 plan_durations = Window(
@@ -404,18 +404,18 @@ plan_durations = Window(
         SwitchTo(
             text=I18nFormat("btn-plan-duration-add"),
             id="duration_add",
-            state=RemnashopPlans.DURATION_ADD,
+            state=KeystoneTechPlans.DURATION_ADD,
         ),
     ),
     Row(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopPlans.CONFIGURATOR,
+            state=KeystoneTechPlans.CONFIGURATOR,
         ),
     ),
     IgnoreUpdate(),
-    state=RemnashopPlans.DURATIONS,
+    state=KeystoneTechPlans.DURATIONS,
     getter=durations_getter,
 )
 
@@ -426,12 +426,12 @@ plan_durations_add = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopPlans.DURATIONS,
+            state=KeystoneTechPlans.DURATIONS,
         ),
     ),
     MessageInput(func=on_duration_input),
     IgnoreUpdate(),
-    state=RemnashopPlans.DURATION_ADD,
+    state=KeystoneTechPlans.DURATION_ADD,
 )
 
 plan_prices = Window(
@@ -455,11 +455,11 @@ plan_prices = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopPlans.DURATIONS,
+            state=KeystoneTechPlans.DURATIONS,
         ),
     ),
     IgnoreUpdate(),
-    state=RemnashopPlans.PRICES,
+    state=KeystoneTechPlans.PRICES,
     getter=prices_getter,
 )
 
@@ -470,12 +470,12 @@ plan_price = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopPlans.PRICES,
+            state=KeystoneTechPlans.PRICES,
         ),
     ),
     MessageInput(func=on_price_input),
     IgnoreUpdate(),
-    state=RemnashopPlans.PRICE,
+    state=KeystoneTechPlans.PRICE,
     getter=price_getter,
 )
 
@@ -502,12 +502,12 @@ plan_allowed_users = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopPlans.CONFIGURATOR,
+            state=KeystoneTechPlans.CONFIGURATOR,
         ),
     ),
     MessageInput(func=on_allowed_user_input),
     IgnoreUpdate(),
-    state=RemnashopPlans.ALLOWED,
+    state=KeystoneTechPlans.ALLOWED,
     getter=allowed_users_getter,
 )
 
@@ -518,25 +518,25 @@ plan_squads = Window(
         SwitchTo(
             text=I18nFormat("btn-plan-internal-squads"),
             id="internal",
-            state=RemnashopPlans.INTERNAL_SQUADS,
+            state=KeystoneTechPlans.INTERNAL_SQUADS,
         ),
     ),
     Row(
         SwitchTo(
             text=I18nFormat("btn-plan-external-squads"),
             id="external",
-            state=RemnashopPlans.EXTERNAL_SQUADS,
+            state=KeystoneTechPlans.EXTERNAL_SQUADS,
         ),
     ),
     Row(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopPlans.CONFIGURATOR,
+            state=KeystoneTechPlans.CONFIGURATOR,
         ),
     ),
     IgnoreUpdate(),
-    state=RemnashopPlans.SQUADS,
+    state=KeystoneTechPlans.SQUADS,
     getter=squads_getter,
 )
 
@@ -561,11 +561,11 @@ plan_internal_squads = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopPlans.SQUADS,
+            state=KeystoneTechPlans.SQUADS,
         ),
     ),
     IgnoreUpdate(),
-    state=RemnashopPlans.INTERNAL_SQUADS,
+    state=KeystoneTechPlans.INTERNAL_SQUADS,
     getter=internal_squads_getter,
 )
 
@@ -590,11 +590,11 @@ plan_external_squads = Window(
         SwitchTo(
             text=I18nFormat("btn-back"),
             id="back",
-            state=RemnashopPlans.SQUADS,
+            state=KeystoneTechPlans.SQUADS,
         ),
     ),
     IgnoreUpdate(),
-    state=RemnashopPlans.EXTERNAL_SQUADS,
+    state=KeystoneTechPlans.EXTERNAL_SQUADS,
     getter=external_squads_getter,
 )
 

@@ -82,7 +82,7 @@ class SettingsDto(TrackableDto):
 
     rules_link: SecretStr = SecretStr("https://telegram.org/tos/")
     channel_id: Optional[int] = False
-    channel_link: SecretStr = SecretStr("@remna_shop")
+    channel_link: SecretStr = SecretStr("@keystone_tech")
 
     access_mode: AccessMode = AccessMode.PUBLIC
     purchases_allowed: bool = True

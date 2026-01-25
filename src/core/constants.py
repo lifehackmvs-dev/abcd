@@ -22,7 +22,7 @@ REMNAWAVE_WEBHOOK_PATH: Final[str] = "/remnawave"
 REPOSITORY: Final[str] = "https://github.com/keystonetech/keystonetech"
 
 TIMEZONE: Final[timezone] = timezone.utc
-REMNASHOP_PREFIX: Final[str] = "ks_"
+KEYSTONETECH_PREFIX: Final[str] = "ks_"
 PURCHASE_PREFIX: Final[str] = "purchase_"
 GOTO_PREFIX: Final[str] = "gt_"
 ENCRYPTED_PREFIX: Final[str] = "enc_"

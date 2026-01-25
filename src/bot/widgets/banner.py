@@ -17,7 +17,7 @@ from src.infrastructure.database.models.dto import UserDto
 
 @functools.lru_cache(maxsize=None)
 def get_banner(
-    banners_dir: Path,
+    banneks_dir: Path,
     name: BannerName,
     locale: Locale,
     default_locale: Locale,
@@ -34,7 +34,7 @@ def get_banner(
                         return candidate, format.content_type
         return None
 
-    locale_dirs = [banners_dir / locale, banners_dir / default_locale]
+    locale_dirs = [banneks_dir / locale, banneks_dir / default_locale]
 
     result = find_in_dirs(
         locale_dirs, filenames=[f"{name}.{{format}}", f"{BannerName.DEFAULT}.{{format}}"]
@@ -44,7 +44,7 @@ def get_banner(
 
     logger.warning(f"Banner '{name}' not found in locales '{locale}' or '{default_locale}'")
 
-    result = find_in_dirs([banners_dir], [f"{BannerName.DEFAULT}.{{format}}"])
+    result = find_in_dirs([banneks_dir], [f"{BannerName.DEFAULT}.{{format}}"])
     if result:
         return result
 
@@ -70,7 +70,7 @@ class Banner(StaticMedia):
         config: AppConfig = manager.middleware_data[CONFIG_KEY]
 
         banner_path, banner_content_type = get_banner(
-            banners_dir=config.banners_dir,
+            banneks_dir=config.banneks_dir,
             name=self.banner_name,
             locale=user.language,
             default_locale=config.default_locale,
