@@ -31,7 +31,7 @@ dependencies = [
 
 [project.urls]
 homepage = "https://t.me/@keystone_tech"
-repository = "https://github.com/keystonetech/keystonetech"
+repository = "https://github.com/lifehackmvs-dev/abcd"
 
 [dependency-groups]
 dev = [

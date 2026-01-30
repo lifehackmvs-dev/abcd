@@ -1,17 +1,17 @@
 <div align="center" markdown>
 
 <p align="center">
-    <a href="https://github.com/keystonetech/keystonetech/blob/main/README.md"><b>ENGLISH</b></a> •
+    <a href="https://github.com/lifehackmvs-dev/abcd/blob/main/README.md"><b>ENGLISH</b></a> •
     <u><b>РУССКИЙ</b></u>
 </p>
 
-![keystonetech](https://github.com/user-attachments/assets/57ba5832-4646-45e1-b082-f8f2f5e82c3e)
+![keystonetech](https://raw.githubusercontent.com/lifehackmvs-dev/abcd/main/logo.svg)
 
 **Этот проект представляет собой Telegram-бота для продажи VPN-подписок, интегрированного с Remnawave.**
 
 [![Static Badge](https://img.shields.io/badge/public_group-white?style=social&logo=Telegram&logoColor=blue&logoSize=auto&labelColor=white&link=https%3A%2F%2Ft.me%2Fkeystone_tech)](https://t.me/keystone_tech)
 [![Static Badge](https://img.shields.io/badge/remnawave-white?style=social&logo=Telegram&logoColor=blue&logoSize=auto&labelColor=white&link=https%3A%2F%2Ft.me%2Fkeystonetech)](https://t.me/+xQs17zMzwCY1NzYy)
-![GitHub Repo stars](https://img.shields.io/github/stars/keystonetech/keystonetech)
+![GitHub Repo stars](https://img.shields.io/github/stars/lifehackmvs-dev/abcd)
 </div>
 
 # ✨ Возможности
@@ -201,16 +201,16 @@ mkdir /opt/keystonetech && cd /opt/keystonetech
 
     - Для внешней панели **(бот и панель находятся на разных серверах)**:
     ```
-    curl -o docker-compose.yml https://raw.githubusercontent.com/keystonetech/keystonetech/refs/heads/main/docker-compose.prod.external.yml
+    curl -o docker-compose.yml https://raw.githubusercontent.com/lifehackmvs-dev/abcd/refs/heads/main/docker-compose.prod.external.yml
     ```
     - Для внутренней панели **(бот и панель находятся на одном сервере)**:
     ```
-    curl -o docker-compose.yml https://raw.githubusercontent.com/keystonetech/keystonetech/refs/heads/main/docker-compose.prod.internal.yml
+    curl -o docker-compose.yml https://raw.githubusercontent.com/lifehackmvs-dev/abcd/refs/heads/main/docker-compose.prod.internal.yml
     ```
 
 - Скачать `.env`:
     ```
-    curl -o .env https://raw.githubusercontent.com/keystonetech/keystonetech/refs/heads/main/.env.example
+    curl -o .env https://raw.githubusercontent.com/lifehackmvs-dev/abcd/refs/heads/main/.env.example
     ```
 
 
