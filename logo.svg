@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="keystoneGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="200" cy="200" r="180" fill="url(#keystoneGradient)"/>
+  
+  <!-- Keystone shape -->
+  <path d="M 120 120 L 280 120 L 280 200 L 200 280 L 120 200 Z" 
+        fill="white" 
+        stroke="white" 
+        stroke-width="4"/>
+  
+  <!-- Inner diamond -->
+  <path d="M 200 160 L 240 200 L 200 240 L 160 200 Z" 
+        fill="url(#keystoneGradient)"/>
+  
+  <!-- Corner accents -->
+  <circle cx="200" cy="120" r="8" fill="white"/>
+  <circle cx="280" cy="120" r="8" fill="white"/>
+  <circle cx="280" cy="200" r="8" fill="white"/>
+  <circle cx="120" cy="200" r="8" fill="white"/>
+  <circle cx="120" cy="120" r="8" fill="white"/>
+  <circle cx="200" cy="280" r="8" fill="white"/>
+</svg>

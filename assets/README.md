@@ -25,7 +25,7 @@ This ensures that even if a specific banner or locale is not found, some banner 
 
 ## Supported formats
 
-The following file formats are supported, as defined in `/keystonetech/src/core/enums.py` as `BannerFormat`:
+The following file formats are supported, as defined in `src/core/enums.py` as `BannerFormat`:
 
 * **JPG**
 * **JPEG**
@@ -35,7 +35,7 @@ The following file formats are supported, as defined in `/keystonetech/src/core/
 
 ## Banner names
 
-Banner filenames must correspond to the following predefined names, specified in `/keystonetech/src/core/enums.py` as `BannerName`:
+Banner filenames must correspond to the following predefined names, specified in `src/core/enums.py` as `BannerName`:
 
 * **`DEFAULT`**: The default banner, used when a specific banner is not found.
 * **`MENU`**: The main menu banner.
@@ -65,7 +65,7 @@ The `translations` folder contains all localization text files.
 
 Supported locales are defined in environment variables:
 
-* **`APP_LOCALES`**: A list of supported locales. A full list of available locales can be found in `keystonetech/src/core/enums.py` as `Locale`.
+* **`APP_LOCALES`**: A list of supported locales. A full list of available locales can be found in `src/core/enums.py` as `Locale`.
 * **`APP_DEFAULT_LOCALE`**: The default locale to be used if a user's language preference is not specified or not supported.
 
 

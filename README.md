@@ -2,16 +2,16 @@
 
 <p align="center">
     <u><b>ENGLISH</b></u> •
-    <a href="https://github.com/keystonetech/keystonetech/blob/main/README.ru_RU.md"><b>РУССКИЙ</b></a>
+    <a href="https://github.com/lifehackmvs-dev/abcd/blob/main/README.ru_RU.md"><b>РУССКИЙ</b></a>
 </p>
 
-![keystonetech](https://github.com/user-attachments/assets/57ba5832-4646-45e1-b082-f8f2f5e82c3e)
+![keystonetech](https://raw.githubusercontent.com/lifehackmvs-dev/abcd/main/logo.svg)
 
 **This project is a Telegram bot for selling VPN subscriptions, integrated with Remnawave.**
 
 [![Static Badge](https://img.shields.io/badge/public_group-white?style=social&logo=Telegram&logoColor=blue&logoSize=auto&labelColor=white&link=https%3A%2F%2Ft.me%2Fkeystone_tech)](https://t.me/keystone_tech)
 [![Static Badge](https://img.shields.io/badge/remnawave-white?style=social&logo=Telegram&logoColor=blue&logoSize=auto&labelColor=white&link=https%3A%2F%2Ft.me%2Fkeystonetech)](https://t.me/+xQs17zMzwCY1NzYy)
-![GitHub Repo stars](https://img.shields.io/github/stars/keystonetech/keystonetech)
+![GitHub Repo stars](https://img.shields.io/github/stars/lifehackmvs-dev/abcd)
 </div>
 
 # ✨ Features
@@ -201,16 +201,16 @@ Download `docker-compose.yml` compose-file and `.env` by running these commands:
 
     - For external panel **(the bot is hosted on a separate server from the panel)**:
     ```
-    curl -o docker-compose.yml https://raw.githubusercontent.com/keystonetech/keystonetech/refs/heads/main/docker-compose.prod.external.yml
+    curl -o docker-compose.yml https://raw.githubusercontent.com/lifehackmvs-dev/abcd/refs/heads/main/docker-compose.prod.external.yml
     ```
     - For internal panel **(the bot and panel are hosted on the same server)**:
     ```
-    curl -o docker-compose.yml https://raw.githubusercontent.com/keystonetech/keystonetech/refs/heads/main/docker-compose.prod.internal.yml
+    curl -o docker-compose.yml https://raw.githubusercontent.com/lifehackmvs-dev/abcd/refs/heads/main/docker-compose.prod.internal.yml
     ```
 
 - Get `.env` file
     ```
-    curl -o .env https://raw.githubusercontent.com/keystonetech/keystonetech/refs/heads/main/.env.example
+    curl -o .env https://raw.githubusercontent.com/lifehackmvs-dev/abcd/refs/heads/main/.env.example
     ```
 
 
